@@ -1,11 +1,13 @@
 package com.example.adtpoapi.model;
 
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
@@ -17,12 +19,14 @@ public class Usuario {
 	private Integer idUsuario;
 	private String mail;
 	private String nombre;
-	private String contrasenia;
+	private String contraseña;
+	@Column(name = "red_social")
 	private String redSocial; 
 	private Integer habilitado;
+	@Column(name = "codigo_verificacion")
 	private Integer codigoVerificacion;
 	private String avatar;
-	@OneToMany()
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idDireccion")
 	private Direccion direccion;
 	
@@ -33,13 +37,15 @@ public class Usuario {
 		this.idUsuario = idUsuario;
 		this.mail = mail;
 		this.nombre = nombre;
-		this.contrasenia = contrasenia;
+		this.contraseña = contrasenia;
 		this.redSocial = redSocial;
 		this.habilitado = habilitado;
 		this.codigoVerificacion = codigoVerificacion;
 		this.avatar = avatar;
 		this.direccion = direccion;
 	}
+	
+	public Usuario() {}
 	
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -60,10 +66,10 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 	public String getContrasenia() {
-		return contrasenia;
+		return contraseña;
 	}
 	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
+		this.contraseña = contrasenia;
 	}
 	public String getRedSocial() {
 		return redSocial;

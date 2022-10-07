@@ -16,11 +16,12 @@ public class MedioDePago {
 	private String tipo;
 	
 	public MedioDePago(Integer idMedio, String nombre, String tipo) {
-		super();
 		this.idMedio = idMedio;
 		this.nombre = nombre;
 		this.tipo = tipo;
 	}
+	
+	public MedioDePago() {}
 	
 	public Integer getIdMedio() {
 		return idMedio;

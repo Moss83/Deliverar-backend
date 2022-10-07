@@ -1,12 +1,19 @@
 package com.example.adtpoapi.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "productos")
@@ -14,19 +21,24 @@ public class Producto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idProducto;
-	@ManyToMany()
-	@JoinTable(name = "idReceta")
+	@ManyToOne()
+	@JoinTable(name = "idRestaurante")
 	private Restaurante restaurante;
 	private String categoria;
 	private String nombre;
 	private String descripcion;
 	private String foto;
-	private Float precio;
-	private Integer idProductoPadre;
+	private Double precio;
+	private Producto productoPadre;
+	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Tag> tags;
+	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Ingrediente> ingredientes;
 	
-	public Producto(Integer producto, Restaurante restaurante, String categoria, String nombre, String descripcion,
-			String foto, Float precio, Integer idProductoPadre) {
-		super();
+	public Producto(Integer idProducto, Restaurante restaurante, String categoria, String nombre, String descripcion,
+			String foto, Double precio, Producto productoPadre, List<Tag> tags, List<Ingrediente> ingredientes) {
 		this.idProducto = idProducto;
 		this.restaurante = restaurante;
 		this.categoria = categoria;
@@ -34,8 +46,12 @@ public class Producto {
 		this.descripcion = descripcion;
 		this.foto = foto;
 		this.precio = precio;
-		this.idProductoPadre = idProductoPadre;
+		this.productoPadre = productoPadre;
+		this.tags = tags;
+		this.ingredientes = ingredientes;
 	}
+	
+	public Producto() {}
 	
 	public Integer getIdProducto() {
 		return idProducto;
@@ -73,17 +89,33 @@ public class Producto {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	public Float getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
-	public void setPrecio(Float precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
-	public Integer getIdProductoPadre() {
-		return idProductoPadre;
+	public Producto getProductoPadre() {
+		return productoPadre;
 	}
-	public void setIdProductoPadre(Integer idProductoPadre) {
-		this.idProductoPadre = idProductoPadre;
+	public void setProductoPadre(Producto productoPadre) {
+		this.productoPadre = productoPadre;
+	}
+
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public List<Ingrediente> getIngredientes() {
+		return ingredientes;
+	}
+
+	public void setIngredientes(List<Ingrediente> ingredientes) {
+		this.ingredientes = ingredientes;
 	}
 	
 	

@@ -20,12 +20,11 @@ public class Ingrediente {
 	private Producto producto;
 	private String nombre;
 	private Integer obligatorio;
-	private Float precio;
+	private Double precio;
 	private Integer numeroGrupo;
 
-	public Ingrediente(Integer idIngrediente, Producto producto, String nombre, Integer obligatorio, Float precio,
+	public Ingrediente(Integer idIngrediente, Producto producto, String nombre, Integer obligatorio, Double precio,
 			Integer numeroGrupo) {
-		super();
 		this.idIngrediente = idIngrediente;
 		this.producto = producto;
 		this.nombre = nombre;
@@ -33,6 +32,8 @@ public class Ingrediente {
 		this.precio = precio;
 		this.numeroGrupo = numeroGrupo;
 	}
+	
+	public Ingrediente() {}
 
 	public Integer getIdIngrediente() {
 		return idIngrediente;
@@ -58,10 +59,10 @@ public class Ingrediente {
 	public void setObligatorio(Integer obligatorio) {
 		this.obligatorio = obligatorio;
 	}
-	public Float getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
-	public void setPrecio(Float precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 	public Integer getNumeroGrupo() {

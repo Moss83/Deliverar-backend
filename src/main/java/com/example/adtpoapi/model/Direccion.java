@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +19,22 @@ public class Direccion {
 	private String departamento;
 	private String ciudad;
 	private String provincia;
+	
+	
+	public Direccion(Integer idDireccion, String calle, Integer altura, String tipoHogar, Integer piso,
+			String departamento, String ciudad, String provincia) {
+		this.idDireccion = idDireccion;
+		this.calle = calle;
+		this.altura = altura;
+		this.tipoHogar = tipoHogar;
+		this.piso = piso;
+		this.departamento = departamento;
+		this.ciudad = ciudad;
+		this.provincia = provincia;
+	}
+	
+	public Direccion() {}
+	
 	public Integer getIdDireccion() {
 		return idDireccion;
 	}

@@ -18,15 +18,17 @@ public class Tag {
 	@ManyToOne
 	@JoinColumn(name = "idProducto")
 	private Producto producto;
-	private Float descuento;
+	private Double descuento;
 	
-	public Tag(Integer idTag, String nombre, Producto producto, Float descuento) {
+	public Tag(Integer idTag, String nombre, Producto producto, Double descuento) {
 		super();
 		this.idTag = idTag;
 		this.nombre = nombre;
 		this.producto = producto;
 		this.descuento = descuento;
 	}
+	
+	public Tag() {}
 	
 	public Integer getIdTag() {
 		return idTag;
@@ -46,10 +48,10 @@ public class Tag {
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
-	public Float getDescuento() {
+	public Double getDescuento() {
 		return descuento;
 	}
-	public void setDescuento(Float descuento) {
+	public void setDescuento(Double descuento) {
 		this.descuento = descuento;
 	}
 	

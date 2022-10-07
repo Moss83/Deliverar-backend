@@ -7,7 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "horarios")
@@ -17,10 +18,22 @@ public class Horario {
 	private Integer idHorario;
 	@ManyToOne()
 	@JoinColumn(name = "idRestaurante")
-	private Restaurante resturante;
+	private Restaurante restaurante;
 	private String diaSemana;
-	private Date horaDesde;
-	private Date horaHasta;
+	private LocalDate horaDesde;
+	private LocalDate horaHasta;
+	
+	public Horario(Integer idHorario, Restaurante restaurante, String diaSemana, LocalDate horaDesde,
+			LocalDate horaHasta) {
+		this.idHorario = idHorario;
+		this.restaurante = restaurante;
+		this.diaSemana = diaSemana;
+		this.horaDesde = horaDesde;
+		this.horaHasta = horaHasta;
+	}
+	
+	public Horario() {}
+	
 	public Integer getIdHorario() {
 		return idHorario;
 	}
@@ -28,10 +41,10 @@ public class Horario {
 		this.idHorario = idHorario;
 	}
 	public Restaurante getResturante() {
-		return resturante;
+		return restaurante;
 	}
-	public void setIdResturante(Restaurante resturante) {
-		this.resturante = resturante;
+	public void setIdResturante(Restaurante restaurante) {
+		this.restaurante = restaurante;
 	}
 	public String getDiaSemana() {
 		return diaSemana;
@@ -39,16 +52,16 @@ public class Horario {
 	public void setDiaSemana(String diaSemana) {
 		this.diaSemana = diaSemana;
 	}
-	public Date getHoraDesde() {
+	public LocalDate getHoraDesde() {
 		return horaDesde;
 	}
-	public void setHoraDesde(Date horaDesde) {
+	public void setHoraDesde(LocalDate horaDesde) {
 		this.horaDesde = horaDesde;
 	}
-	public Date getHoraHasta() {
+	public LocalDate getHoraHasta() {
 		return horaHasta;
 	}
-	public void setHoraHasta(Date horaHasta) {
+	public void setHoraHasta(LocalDate horaHasta) {
 		this.horaHasta = horaHasta;
 	}
 	
