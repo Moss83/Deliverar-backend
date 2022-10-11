@@ -47,6 +47,10 @@ public class Usuario {
 		this.direccion = direccion;
 	}
 	
+	public Usuario(String mail) {
+		this.mail = mail;
+	}
+
 	public Usuario() {}
 	
 	public Integer getIdUsuario() {
