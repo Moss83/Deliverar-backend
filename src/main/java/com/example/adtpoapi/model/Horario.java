@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.example.adtpoapi.view.HorarioView;
+
 import java.time.LocalDate;
 
 @Entity
@@ -65,5 +67,7 @@ public class Horario {
 		this.horaHasta = horaHasta;
 	}
 	
-	
+	public HorarioView toView() {
+		return new HorarioView(idHorario, diaSemana, horaDesde, horaHasta);
+	}
 }

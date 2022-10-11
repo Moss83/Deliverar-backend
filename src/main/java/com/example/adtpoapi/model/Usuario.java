@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import com.example.adtpoapi.view.UsuarioView;
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
@@ -45,6 +47,10 @@ public class Usuario {
 		this.direccion = direccion;
 	}
 	
+	public Usuario(String mail) {
+		this.mail = mail;
+	}
+
 	public Usuario() {}
 	
 	public Integer getIdUsuario() {
@@ -102,5 +108,7 @@ public class Usuario {
 		this.direccion = direccion;
 	}
 	
-	
+	public UsuarioView toView() {
+		return new UsuarioView(idUsuario, mail, nombre, contraseña, redSocial, habilitado, codigoVerificacion, avatar, direccion.toView());
+	}
 }

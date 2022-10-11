@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.example.adtpoapi.view.TagView;
+
 @Entity
 @Table(name = "tags")
 public class Tag {
@@ -55,6 +57,8 @@ public class Tag {
 		this.descuento = descuento;
 	}
 	
-	
+	public TagView toView() {
+		return new TagView(idTag, nombre, descuento);
+	}
 	
 }
