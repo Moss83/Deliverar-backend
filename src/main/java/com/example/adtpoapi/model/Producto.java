@@ -1,5 +1,6 @@
 package com.example.adtpoapi.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+
+import com.example.adtpoapi.view.IngredienteView;
+import com.example.adtpoapi.view.ProductoView;
+import com.example.adtpoapi.view.TagView;
 
 @Entity
 @Table(name = "productos")
@@ -118,6 +123,17 @@ public class Producto {
 		this.ingredientes = ingredientes;
 	}
 	
-	
+	public ProductoView toView() {
+		List<TagView> tagsv = new ArrayList<TagView>();
+		List<IngredienteView> ingredientesv = new ArrayList<IngredienteView>();
+		
+		for (Tag t: tags) {
+			tagsv.add(t.toView());
+		}
+		for (Ingrediente i: ingredientes) {
+			ingredientesv.add(i.toView());
+		}
+		return new ProductoView(idProducto, categoria, nombre, descripcion, foto, precio, productoPadre.toView(), tagsv, ingredientesv);
+	}
 
 }

@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.example.adtpoapi.view.MedioDePagoView;
+
 @Entity
 @Table(name = "mediospago")
 public class MedioDePago {
@@ -40,5 +42,9 @@ public class MedioDePago {
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}	
+	}
+	
+	public MedioDePagoView toView() {
+		return new MedioDePagoView(idMedio, nombre, tipo);
+	}
 }

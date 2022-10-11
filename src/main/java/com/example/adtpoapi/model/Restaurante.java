@@ -1,5 +1,6 @@
 package com.example.adtpoapi.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+
+import com.example.adtpoapi.view.HorarioView;
+import com.example.adtpoapi.view.MedioDePagoView;
+import com.example.adtpoapi.view.ProductoView;
+import com.example.adtpoapi.view.RestauranteView;
 
 @Entity
 @Table(name= "restaurantes")
@@ -128,5 +134,21 @@ public class Restaurante {
 		this.mediosDePago = mediosDePago;
 	}
 	
-	
+	public RestauranteView toView() {
+		List<ProductoView> productosv = new ArrayList<ProductoView>();
+		List<HorarioView> horariosv = new ArrayList<HorarioView>();
+		List<MedioDePagoView> mediosdepagov = new ArrayList<MedioDePagoView>();
+		
+		for (Producto p: productos) {
+			productosv.add(p.toView());
+		}
+		for (Horario h: horarios) {
+			horariosv.add(h.toView());
+		}
+		for(MedioDePago m: mediosDePago) {
+			mediosdepagov.add(m.toView());
+		}
+		
+		return new RestauranteView(idRestaurante, nombre, direccion.toView(), foto, minimoCompra, tipo, costoEnvio, productosv, horariosv, mediosdepagov);
+	}
 }

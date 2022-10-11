@@ -1,18 +1,13 @@
-package com.example.adtpoapi.model;
+package com.example.adtpoapi.view;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
 
-import com.example.adtpoapi.view.DireccionView;
+public class DireccionView implements Serializable {
 
-@Entity
-@Table(name = "direccion")
-public class Direccion {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -546636632882488199L;
 	private Integer idDireccion;
 	private String calle;
 	private Integer altura;
@@ -22,8 +17,7 @@ public class Direccion {
 	private String ciudad;
 	private String provincia;
 	
-	
-	public Direccion(Integer idDireccion, String calle, Integer altura, String tipoHogar, Integer piso,
+	public DireccionView(Integer idDireccion, String calle, Integer altura, String tipoHogar, Integer piso,
 			String departamento, String ciudad, String provincia) {
 		this.idDireccion = idDireccion;
 		this.calle = calle;
@@ -35,7 +29,7 @@ public class Direccion {
 		this.provincia = provincia;
 	}
 	
-	public Direccion() {}
+	public DireccionView() {}
 	
 	public Integer getIdDireccion() {
 		return idDireccion;
@@ -85,8 +79,13 @@ public class Direccion {
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
 	}
-	
-	public DireccionView toView() {
-		return new DireccionView(idDireccion, calle, altura, tipoHogar, piso, departamento, ciudad, provincia);
+
+	@Override
+	public String toString() {
+		return "DireccionView [idDireccion=" + idDireccion + ", calle=" + calle + ", altura=" + altura + ", tipoHogar="
+				+ tipoHogar + ", piso=" + piso + ", departamento=" + departamento + ", ciudad=" + ciudad
+				+ ", provincia=" + provincia + "]";
 	}
+	
+	
 }
