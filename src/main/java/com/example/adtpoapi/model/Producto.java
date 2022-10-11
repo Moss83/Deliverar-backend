@@ -34,7 +34,6 @@ public class Producto {
 	private String descripcion;
 	private String foto;
 	private Double precio;
-	private Producto productoPadre;
 	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Tag> tags;
@@ -43,7 +42,7 @@ public class Producto {
 	private List<Ingrediente> ingredientes;
 	
 	public Producto(Integer idProducto, Restaurante restaurante, String categoria, String nombre, String descripcion,
-			String foto, Double precio, Producto productoPadre, List<Tag> tags, List<Ingrediente> ingredientes) {
+			String foto, Double precio, List<Tag> tags, List<Ingrediente> ingredientes) {
 		this.idProducto = idProducto;
 		this.restaurante = restaurante;
 		this.categoria = categoria;
@@ -51,7 +50,6 @@ public class Producto {
 		this.descripcion = descripcion;
 		this.foto = foto;
 		this.precio = precio;
-		this.productoPadre = productoPadre;
 		this.tags = tags;
 		this.ingredientes = ingredientes;
 	}
@@ -100,12 +98,6 @@ public class Producto {
 	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
-	public Producto getProductoPadre() {
-		return productoPadre;
-	}
-	public void setProductoPadre(Producto productoPadre) {
-		this.productoPadre = productoPadre;
-	}
 
 	public List<Tag> getTags() {
 		return tags;
@@ -133,7 +125,7 @@ public class Producto {
 		for (Ingrediente i: ingredientes) {
 			ingredientesv.add(i.toView());
 		}
-		return new ProductoView(idProducto, categoria, nombre, descripcion, foto, precio, productoPadre.toView(), tagsv, ingredientesv);
+		return new ProductoView(idProducto, categoria, nombre, descripcion, foto, precio, tagsv, ingredientesv);
 	}
 
 }

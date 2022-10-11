@@ -15,19 +15,17 @@ public class ProductoView implements Serializable{
 	private String descripcion;
 	private String foto;
 	private Double precio;
-	private ProductoView productoPadre;
 	private List<TagView> tags;
 	private List<IngredienteView> ingredientes;
 	
 	public ProductoView(Integer idProducto, String categoria, String nombre, String descripcion, String foto,
-			Double precio, ProductoView productoPadre, List<TagView> tags, List<IngredienteView> ingredientes) {
+			Double precio, List<TagView> tags, List<IngredienteView> ingredientes) {
 		this.idProducto = idProducto;
 		this.categoria = categoria;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.foto = foto;
 		this.precio = precio;
-		this.productoPadre = productoPadre;
 		this.tags = tags;
 		this.ingredientes = ingredientes;
 	}
@@ -80,14 +78,6 @@ public class ProductoView implements Serializable{
 
 	public void setPrecio(Double precio) {
 		this.precio = precio;
-	}
-
-	public ProductoView getProductoPadre() {
-		return productoPadre;
-	}
-
-	public void setProductoPadre(ProductoView productoPadre) {
-		this.productoPadre = productoPadre;
 	}
 
 	public List<TagView> getTags() {

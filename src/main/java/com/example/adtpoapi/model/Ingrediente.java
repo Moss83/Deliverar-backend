@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.example.adtpoapi.view.IngredienteView;
@@ -17,7 +17,7 @@ public class Ingrediente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idIngrediente;
-	@ManyToMany()
+	@ManyToOne()
 	@JoinTable(name = "idProducto")
 	private Producto producto;
 	private String nombre;
