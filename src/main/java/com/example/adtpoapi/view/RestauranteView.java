@@ -13,6 +13,7 @@ public class RestauranteView implements Serializable{
 	private String nombre;
 	private DireccionView direccion;
 	private String foto;
+	private Double promedioCalificaciones;
 	private Double minimoCompra;
 	private String tipo;
 	private Double costoEnvio;
@@ -20,13 +21,14 @@ public class RestauranteView implements Serializable{
 	private List<HorarioView> horarios;
 	private List<MedioDePagoView> mediosDePago;
 	
-	public RestauranteView(Integer idRestaurante, String nombre, DireccionView direccion, String foto,
+	public RestauranteView(Integer idRestaurante, String nombre, DireccionView direccion, String foto, Double promedioCalificaciones,
 			Double minimoCompra, String tipo, Double costoEnvio, List<ProductoView> productos,
 			List<HorarioView> horarios, List<MedioDePagoView> mediosDePago) {
 		this.idRestaurante = idRestaurante;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.foto = foto;
+		this.promedioCalificaciones = promedioCalificaciones;
 		this.minimoCompra = minimoCompra;
 		this.tipo = tipo;
 		this.costoEnvio = costoEnvio;
@@ -67,6 +69,14 @@ public class RestauranteView implements Serializable{
 
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+
+	public Double getPromedioCalificaciones() {
+		return promedioCalificaciones;
+	}
+
+	public void setPromedioCalificaciones(Double promedioCalificaciones) {
+		this.promedioCalificaciones = promedioCalificaciones;
 	}
 
 	public Double getMinimoCompra() {

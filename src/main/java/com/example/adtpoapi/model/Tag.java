@@ -23,7 +23,6 @@ public class Tag {
 	private Double descuento;
 	
 	public Tag(Integer idTag, String nombre, Producto producto, Double descuento) {
-		super();
 		this.idTag = idTag;
 		this.nombre = nombre;
 		this.producto = producto;

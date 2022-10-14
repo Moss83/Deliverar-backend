@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,8 @@ public class Restaurante {
 	@JoinColumn(name = "idDireccion")
 	private Direccion direccion;
 	private String foto;
+	@Column(name = "promedio_calificaciones")
+	private Double promedioCalificaciones;
 	private Double minimoCompra;
 	private String tipo;
 	private Double costoEnvio;
@@ -48,11 +51,12 @@ public class Restaurante {
 	@JoinTable(name = "pagorestaurante", joinColumns = {@JoinColumn(name = "idRestaurante")}, inverseJoinColumns = {@JoinColumn(name = "idMedio")})
 	private List<MedioDePago> mediosDePago;
 	
-	public Restaurante(Integer idRestaurante, String nombre, Direccion direccion, String foto, Double minimoCompra, String tipo, Double costoEnvio, List<Producto> productos, List<Horario> horarios, List<MedioDePago> mediosDePago) {
+	public Restaurante(Integer idRestaurante, String nombre, Direccion direccion, String foto, Double promedioCalificaciones, Double minimoCompra, String tipo, Double costoEnvio, List<Producto> productos, List<Horario> horarios, List<MedioDePago> mediosDePago) {
 		this.idRestaurante = idRestaurante;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.foto = foto;
+		this.promedioCalificaciones = promedioCalificaciones;
 		this.minimoCompra = minimoCompra;
 		this.tipo = tipo;
 		this.costoEnvio = costoEnvio;
@@ -78,7 +82,7 @@ public class Restaurante {
 	public Direccion getDireccion() {
 		return direccion;
 	}
-	public void setIdDireccion(Direccion direccion) {
+	public void setDireccion(Direccion direccion) {
 		this.direccion = direccion;
 	}
 	public String getFoto() {
@@ -87,6 +91,14 @@ public class Restaurante {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+	public Double getPromedioCalificaciones() {
+		return promedioCalificaciones;
+	}
+
+	public void setPromedioCalificaciones(Double promedioCalificaciones) {
+		this.promedioCalificaciones = promedioCalificaciones;
+	}
+
 	public Double getMinimoCompra() {
 		return minimoCompra;
 	}
@@ -149,6 +161,6 @@ public class Restaurante {
 			mediosdepagov.add(m.toView());
 		}
 		
-		return new RestauranteView(idRestaurante, nombre, direccion.toView(), foto, minimoCompra, tipo, costoEnvio, productosv, horariosv, mediosdepagov);
+		return new RestauranteView(idRestaurante, nombre, direccion.toView(), foto, promedioCalificaciones, minimoCompra, tipo, costoEnvio, productosv, horariosv, mediosdepagov);
 	}
 }

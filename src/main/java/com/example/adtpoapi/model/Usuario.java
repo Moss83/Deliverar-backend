@@ -35,7 +35,6 @@ public class Usuario {
 	
 	public Usuario(Integer idUsuario, String mail, String nombre, String contrasenia, String redSocial,
 			Integer habilitado, Integer codigoVerificacion, String avatar, Direccion direccion) {
-		super();
 		this.idUsuario = idUsuario;
 		this.mail = mail;
 		this.nombre = nombre;

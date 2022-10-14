@@ -21,16 +21,16 @@ public class Ingrediente {
 	@JoinTable(name = "idProducto")
 	private Producto producto;
 	private String nombre;
-	private Integer obligatorio;
+	private Integer cantidad;
 	private Double precio;
-	private Integer numeroGrupo;
+	private Integer numeroGrupo; //para siguiente release
 
-	public Ingrediente(Integer idIngrediente, Producto producto, String nombre, Integer obligatorio, Double precio,
+	public Ingrediente(Integer idIngrediente, Producto producto, String nombre, Integer cantidad, Double precio,
 			Integer numeroGrupo) {
 		this.idIngrediente = idIngrediente;
 		this.producto = producto;
 		this.nombre = nombre;
-		this.obligatorio = obligatorio;
+		this.cantidad = cantidad;
 		this.precio = precio;
 		this.numeroGrupo = numeroGrupo;
 	}
@@ -55,11 +55,11 @@ public class Ingrediente {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Integer getObligatorio() {
-		return obligatorio;
+	public Integer getCantidad() {
+		return cantidad;
 	}
-	public void setObligatorio(Integer obligatorio) {
-		this.obligatorio = obligatorio;
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
 	}
 	public Double getPrecio() {
 		return precio;
@@ -75,6 +75,6 @@ public class Ingrediente {
 	}
 	
 	public IngredienteView toView() {
-		return new IngredienteView(idIngrediente, nombre, obligatorio, precio, numeroGrupo);
+		return new IngredienteView(idIngrediente, nombre, cantidad, precio, numeroGrupo);
 	}
 }

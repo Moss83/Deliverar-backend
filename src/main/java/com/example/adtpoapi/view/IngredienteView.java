@@ -10,15 +10,15 @@ public class IngredienteView implements Serializable{
 	private static final long serialVersionUID = 2042001709011077131L;
 	private Integer idIngrediente;
 	private String nombre;
-	private Integer obligatorio;
+	private Integer cantidad;
 	private Double precio;
 	private Integer numeroGrupo;
 	
-	public IngredienteView(Integer idIngrediente, String nombre, Integer obligatorio, Double precio,
+	public IngredienteView(Integer idIngrediente, String nombre, Integer cantidad, Double precio,
 			Integer numeroGrupo) {
 		this.idIngrediente = idIngrediente;
 		this.nombre = nombre;
-		this.obligatorio = obligatorio;
+		this.cantidad = cantidad;
 		this.precio = precio;
 		this.numeroGrupo = numeroGrupo;
 	}
@@ -41,12 +41,12 @@ public class IngredienteView implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public Integer getObligatorio() {
-		return obligatorio;
+	public Integer getCantidad() {
+		return cantidad;
 	}
 
-	public void setObligatorio(Integer obligatorio) {
-		this.obligatorio = obligatorio;
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public Double getPrecio() {
