@@ -18,7 +18,7 @@ import com.example.adtpoapi.view.UsuarioView;
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idUsuario;
+	private Integer idusuario;
 	private String mail;
 	private String nombre;
 	private String contraseña;
@@ -29,16 +29,16 @@ public class Usuario {
 	private Integer codigoVerificacion;
 	private String avatar;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idDireccion")
+	@JoinColumn(name = "iddireccion")
 	private Direccion direccion;
 	
 	
-	public Usuario(Integer idUsuario, String mail, String nombre, String contrasenia, String redSocial,
+	public Usuario(Integer idUsuario, String mail, String nombre, String contraseña, String redSocial,
 			Integer habilitado, Integer codigoVerificacion, String avatar, Direccion direccion) {
-		this.idUsuario = idUsuario;
+		this.idusuario = idUsuario;
 		this.mail = mail;
 		this.nombre = nombre;
-		this.contraseña = contrasenia;
+		this.contraseña = contraseña;
 		this.redSocial = redSocial;
 		this.habilitado = habilitado;
 		this.codigoVerificacion = codigoVerificacion;
@@ -46,6 +46,15 @@ public class Usuario {
 		this.direccion = direccion;
 	}
 	
+	public Usuario(String mail, String nombre, String contraseña, Integer habilitado, String avatar, Direccion direccion) {
+		this.mail = mail;
+		this.nombre = nombre;
+		this.contraseña = contraseña;
+		this.habilitado = habilitado;
+		this.avatar = avatar;
+		this.direccion = direccion;
+	}
+
 	public Usuario(String mail) {
 		this.mail = mail;
 	}
@@ -53,10 +62,10 @@ public class Usuario {
 	public Usuario() {}
 	
 	public Integer getIdUsuario() {
-		return idUsuario;
+		return idusuario;
 	}
 	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+		this.idusuario = idUsuario;
 	}
 	public String getMail() {
 		return mail;
@@ -70,11 +79,11 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getContrasenia() {
+	public String getContraseña() {
 		return contraseña;
 	}
-	public void setContrasenia(String contrasenia) {
-		this.contraseña = contrasenia;
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 	public String getRedSocial() {
 		return redSocial;
@@ -108,6 +117,6 @@ public class Usuario {
 	}
 	
 	public UsuarioView toView() {
-		return new UsuarioView(idUsuario, mail, nombre, contraseña, redSocial, habilitado, codigoVerificacion, avatar, direccion.toView());
+		return new UsuarioView(idusuario, mail, nombre, contraseña, redSocial, habilitado, codigoVerificacion, avatar, direccion.toView());
 	}
 }

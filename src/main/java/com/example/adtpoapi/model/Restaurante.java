@@ -1,5 +1,6 @@
 package com.example.adtpoapi.model;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,14 +27,14 @@ import com.example.adtpoapi.view.ProductoView;
 import com.example.adtpoapi.view.RestauranteView;
 
 @Entity
-@Table(name= "restaurantes")
+@Table(name = "restaurantes")
 public class Restaurante {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idRestaurante;
+	private Integer idrestaurante;
 	private String nombre;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idDireccion")
+	@JoinColumn(name = "iddireccion")
 	private Direccion direccion;
 	private String foto;
 	@Column(name = "promedio_calificaciones")
@@ -48,11 +49,11 @@ public class Restaurante {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Horario> horarios;
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-	@JoinTable(name = "pagorestaurante", joinColumns = {@JoinColumn(name = "idRestaurante")}, inverseJoinColumns = {@JoinColumn(name = "idMedio")})
+	@JoinTable(name = "pagorestaurante", joinColumns = {@JoinColumn(name = "idrestaurante")}, inverseJoinColumns = {@JoinColumn(name = "idmedio")})
 	private List<MedioDePago> mediosDePago;
 	
 	public Restaurante(Integer idRestaurante, String nombre, Direccion direccion, String foto, Double promedioCalificaciones, Double minimoCompra, String tipo, Double costoEnvio, List<Producto> productos, List<Horario> horarios, List<MedioDePago> mediosDePago) {
-		this.idRestaurante = idRestaurante;
+		this.idrestaurante = idRestaurante;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.foto = foto;
@@ -68,10 +69,10 @@ public class Restaurante {
 	public Restaurante() {}
 	
 	public Integer getIdRestaurante() {
-		return idRestaurante;
+		return idrestaurante;
 	}
 	public void setIdRestaurante(Integer idRestaurante) {
-		this.idRestaurante = idRestaurante;
+		this.idrestaurante = idRestaurante;
 	}
 	public String getNombre() {
 		return nombre;
@@ -152,7 +153,7 @@ public class Restaurante {
 		List<MedioDePagoView> mediosdepagov = new ArrayList<MedioDePagoView>();
 		
 		for (Producto p: productos) {
-			productosv.add(p.toView());
+			productosv.add(p.toViewSimple());
 		}
 		for (Horario h: horarios) {
 			horariosv.add(h.toView());
@@ -161,6 +162,10 @@ public class Restaurante {
 			mediosdepagov.add(m.toView());
 		}
 		
-		return new RestauranteView(idRestaurante, nombre, direccion.toView(), foto, promedioCalificaciones, minimoCompra, tipo, costoEnvio, productosv, horariosv, mediosdepagov);
+		return new RestauranteView(idrestaurante, nombre, direccion.toView(), foto, promedioCalificaciones, minimoCompra, tipo, costoEnvio, productosv, horariosv, mediosdepagov);
+	}
+	
+	public RestauranteView toViewSimple() {
+		return new RestauranteView(idrestaurante, nombre, direccion.toView(), foto, promedioCalificaciones, tipo);
 	}
 }

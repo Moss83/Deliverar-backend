@@ -15,15 +15,15 @@ import com.example.adtpoapi.view.TagView;
 public class Tag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idTag;
+	private Integer idtag;
 	private String nombre;
 	@ManyToOne
-	@JoinColumn(name = "idProducto")
+	@JoinColumn(name = "idproducto")
 	private Producto producto;
 	private Double descuento;
 	
 	public Tag(Integer idTag, String nombre, Producto producto, Double descuento) {
-		this.idTag = idTag;
+		this.idtag = idTag;
 		this.nombre = nombre;
 		this.producto = producto;
 		this.descuento = descuento;
@@ -32,10 +32,10 @@ public class Tag {
 	public Tag() {}
 	
 	public Integer getIdTag() {
-		return idTag;
+		return idtag;
 	}
 	public void setIdTag(Integer idTag) {
-		this.idTag = idTag;
+		this.idtag = idTag;
 	}
 	public String getNombre() {
 		return nombre;
@@ -57,7 +57,7 @@ public class Tag {
 	}
 	
 	public TagView toView() {
-		return new TagView(idTag, nombre, descuento);
+		return new TagView(idtag, nombre, descuento);
 	}
 	
 }

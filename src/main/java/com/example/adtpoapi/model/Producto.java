@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -25,9 +25,9 @@ import com.example.adtpoapi.view.TagView;
 public class Producto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idProducto;
+	private Integer idproducto;
 	@ManyToOne()
-	@JoinTable(name = "idRestaurante")
+	@JoinColumn(name = "idrestaurante")
 	private Restaurante restaurante;
 	private String categoria;
 	private String nombre;
@@ -43,7 +43,7 @@ public class Producto {
 	
 	public Producto(Integer idProducto, Restaurante restaurante, String categoria, String nombre, String descripcion,
 			String foto, Double precio, List<Tag> tags, List<Ingrediente> ingredientes) {
-		this.idProducto = idProducto;
+		this.idproducto = idProducto;
 		this.restaurante = restaurante;
 		this.categoria = categoria;
 		this.nombre = nombre;
@@ -57,10 +57,10 @@ public class Producto {
 	public Producto() {}
 	
 	public Integer getIdProducto() {
-		return idProducto;
+		return idproducto;
 	}
 	public void setIdProducto(Integer idProducto) {
-		this.idProducto = idProducto;
+		this.idproducto = idProducto;
 	}
 	public Restaurante getRestaurante() {
 		return restaurante;
@@ -125,7 +125,16 @@ public class Producto {
 		for (Ingrediente i: ingredientes) {
 			ingredientesv.add(i.toView());
 		}
-		return new ProductoView(idProducto, categoria, nombre, descripcion, foto, precio, tagsv, ingredientesv);
+		return new ProductoView(idproducto, categoria, nombre, descripcion, foto, precio, tagsv, ingredientesv);
+	}
+	
+	public ProductoView toViewSimple() {
+		List<TagView> tagsv = new ArrayList<TagView>();
+		
+		for (Tag t: tags) {
+			tagsv.add(t.toView());
+		}
+		return new ProductoView(idproducto, categoria, nombre, foto, precio, tagsv);
 	}
 
 }
