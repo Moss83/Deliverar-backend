@@ -20,7 +20,7 @@ public class RestauranteDAO {
 		return restauranteRepository.findAll();
 	}
 	
-	public Restaurante getRestauranteById(int idRestaurante) throws NoContentException {
+	public Restaurante getRestauranteById(Integer idRestaurante) throws NoContentException {
 		return restauranteRepository.findById(idRestaurante).orElseThrow(() -> new NoContentException());
 	}
 	

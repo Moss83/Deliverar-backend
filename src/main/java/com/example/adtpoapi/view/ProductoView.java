@@ -30,6 +30,16 @@ public class ProductoView implements Serializable{
 		this.ingredientes = ingredientes;
 	}
 	
+	public ProductoView(Integer idProducto, String categoria, String nombre, String foto, Double precio,
+			List<TagView> tags) {
+		this.idProducto = idProducto;
+		this.categoria = categoria;
+		this.nombre = nombre;
+		this.foto = foto;
+		this.precio = precio;
+		this.tags = tags;
+	}
+
 	public ProductoView() {}
 
 	public Integer getIdProducto() {

@@ -9,11 +9,11 @@ import javax.persistence.Table;
 import com.example.adtpoapi.view.DireccionView;
 
 @Entity
-@Table(name = "direccion")
+@Table(name = "direcciones")
 public class Direccion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idDireccion;
+	private Integer iddireccion;
 	private String calle;
 	private Integer altura;
 	private String tipoHogar;
@@ -25,7 +25,7 @@ public class Direccion {
 	
 	public Direccion(Integer idDireccion, String calle, Integer altura, String tipoHogar, Integer piso,
 			String departamento, String ciudad, String provincia) {
-		this.idDireccion = idDireccion;
+		this.iddireccion = idDireccion;
 		this.calle = calle;
 		this.altura = altura;
 		this.tipoHogar = tipoHogar;
@@ -35,13 +35,26 @@ public class Direccion {
 		this.provincia = provincia;
 	}
 	
+	public Direccion(String calle, Integer altura, String tipoHogar, Integer piso, String departamento, String ciudad,
+			String provincia) {
+		this.calle = calle;
+		this.altura = altura;
+		this.tipoHogar = tipoHogar;
+		this.piso = piso;
+		this.departamento = departamento;
+		this.ciudad = ciudad;
+		this.provincia = provincia;
+	}
+
+
+
 	public Direccion() {}
 	
 	public Integer getIdDireccion() {
-		return idDireccion;
+		return iddireccion;
 	}
 	public void setIdDireccion(Integer idDireccion) {
-		this.idDireccion = idDireccion;
+		this.iddireccion = idDireccion;
 	}
 	public String getCalle() {
 		return calle;
@@ -87,6 +100,6 @@ public class Direccion {
 	}
 	
 	public DireccionView toView() {
-		return new DireccionView(idDireccion, calle, altura, tipoHogar, piso, departamento, ciudad, provincia);
+		return new DireccionView(iddireccion, calle, altura, tipoHogar, piso, departamento, ciudad, provincia);
 	}
 }

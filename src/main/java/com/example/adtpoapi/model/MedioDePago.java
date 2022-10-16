@@ -13,12 +13,12 @@ import com.example.adtpoapi.view.MedioDePagoView;
 public class MedioDePago {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idMedio;
+	private Integer idmedio;
 	private String nombre;
 	private String tipo;
 	
 	public MedioDePago(Integer idMedio, String nombre, String tipo) {
-		this.idMedio = idMedio;
+		this.idmedio = idMedio;
 		this.nombre = nombre;
 		this.tipo = tipo;
 	}
@@ -26,10 +26,10 @@ public class MedioDePago {
 	public MedioDePago() {}
 	
 	public Integer getIdMedio() {
-		return idMedio;
+		return idmedio;
 	}
 	public void setIdMedio(Integer idMedio) {
-		this.idMedio = idMedio;
+		this.idmedio = idMedio;
 	}
 	public String getNombre() {
 		return nombre;
@@ -45,6 +45,6 @@ public class MedioDePago {
 	}
 	
 	public MedioDePagoView toView() {
-		return new MedioDePagoView(idMedio, nombre, tipo);
+		return new MedioDePagoView(idmedio, nombre, tipo);
 	}
 }

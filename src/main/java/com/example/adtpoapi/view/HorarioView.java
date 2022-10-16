@@ -1,7 +1,7 @@
 package com.example.adtpoapi.view;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 public class HorarioView implements Serializable{
 
@@ -11,10 +11,10 @@ public class HorarioView implements Serializable{
 	private static final long serialVersionUID = -8203494714718656250L;
 	private Integer idHorario;
 	private String diaSemana;
-	private LocalDate horaDesde;
-	private LocalDate horaHasta;
+	private Date horaDesde;
+	private Date horaHasta;
 	
-	public HorarioView(Integer idHorario, String diaSemana, LocalDate horaDesde, LocalDate horaHasta) {
+	public HorarioView(Integer idHorario, String diaSemana, Date horaDesde, Date horaHasta) {
 		this.idHorario = idHorario;
 		this.diaSemana = diaSemana;
 		this.horaDesde = horaDesde;
@@ -39,19 +39,19 @@ public class HorarioView implements Serializable{
 		this.diaSemana = diaSemana;
 	}
 
-	public LocalDate getHoraDesde() {
+	public Date getHoraDesde() {
 		return horaDesde;
 	}
 
-	public void setHoraDesde(LocalDate horaDesde) {
+	public void setHoraDesde(Date horaDesde) {
 		this.horaDesde = horaDesde;
 	}
 
-	public LocalDate getHoraHasta() {
+	public Date getHoraHasta() {
 		return horaHasta;
 	}
 
-	public void setHoraHasta(LocalDate horaHasta) {
+	public void setHoraHasta(Date horaHasta) {
 		this.horaHasta = horaHasta;
 	}
 

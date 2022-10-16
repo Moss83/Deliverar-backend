@@ -1,10 +1,11 @@
 package com.example.adtpoapi.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,18 +17,19 @@ import com.example.adtpoapi.view.IngredienteView;
 public class Ingrediente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idIngrediente;
+	private Integer idingrediente;
 	@ManyToOne()
-	@JoinTable(name = "idProducto")
+	@JoinColumn(name = "idproducto")
 	private Producto producto;
 	private String nombre;
 	private Integer cantidad;
 	private Double precio;
+	@Column(name = "numero_grupo")
 	private Integer numeroGrupo; //para siguiente release
 
 	public Ingrediente(Integer idIngrediente, Producto producto, String nombre, Integer cantidad, Double precio,
 			Integer numeroGrupo) {
-		this.idIngrediente = idIngrediente;
+		this.idingrediente = idIngrediente;
 		this.producto = producto;
 		this.nombre = nombre;
 		this.cantidad = cantidad;
@@ -38,10 +40,10 @@ public class Ingrediente {
 	public Ingrediente() {}
 
 	public Integer getIdIngrediente() {
-		return idIngrediente;
+		return idingrediente;
 	}
 	public void setIdIngrediente(Integer idIngrediente) {
-		this.idIngrediente = idIngrediente;
+		this.idingrediente = idIngrediente;
 	}
 	public Producto getProducto() {
 		return producto;
@@ -75,6 +77,6 @@ public class Ingrediente {
 	}
 	
 	public IngredienteView toView() {
-		return new IngredienteView(idIngrediente, nombre, cantidad, precio, numeroGrupo);
+		return new IngredienteView(idingrediente, nombre, cantidad, precio, numeroGrupo);
 	}
 }
