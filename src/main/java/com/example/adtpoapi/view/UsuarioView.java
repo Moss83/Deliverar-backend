@@ -17,11 +17,12 @@ public class UsuarioView implements Serializable {
 	private Integer habilitado;
 	private Integer codigoVerificacion;
 	private String avatar;
+	private Integer dni;
 	private DireccionView direccion;
 	
 	
 	public UsuarioView(Integer idUsuario, String mail, String nombre, String contraseña, String redSocial,
-			Integer habilitado, Integer codigoVerificacion, String avatar, DireccionView direccion) {
+			Integer habilitado, Integer codigoVerificacion, String avatar, Integer dni, DireccionView direccion) {
 		this.idUsuario = idUsuario;
 		this.mail = mail;
 		this.nombre = nombre;
@@ -30,6 +31,7 @@ public class UsuarioView implements Serializable {
 		this.habilitado = habilitado;
 		this.codigoVerificacion = codigoVerificacion;
 		this.avatar = avatar;
+		this.dni = dni;
 		this.direccion = direccion;
 	}
 	
@@ -97,6 +99,14 @@ public class UsuarioView implements Serializable {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public Integer getDni() {
+		return dni;
+	}
+
+	public void setDni(Integer dni) {
+		this.dni = dni;
 	}
 
 	public DireccionView getDireccion() {
