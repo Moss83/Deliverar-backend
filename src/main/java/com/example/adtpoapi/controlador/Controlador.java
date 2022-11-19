@@ -55,7 +55,7 @@ public class Controlador {
 	
 	public int addUsuario(UsuarioView usuario) {
 		Direccion miDireccion = new Direccion(usuario.getDireccion().getCalle(), usuario.getDireccion().getAltura(), usuario.getDireccion().getTipoHogar(), usuario.getDireccion().getPiso(), usuario.getDireccion().getDepartamento(), usuario.getDireccion().getCiudad(), usuario.getDireccion().getProvincia());
-		Usuario miUsuario = new Usuario(usuario.getMail(), usuario.getNombre(), usuario.getContraseña(), 1, usuario.getAvatar(), miDireccion);
+		Usuario miUsuario = new Usuario(usuario.getMail(), usuario.getNombre(), usuario.getContraseña(), 1, usuario.getAvatar(), usuario.getDni(), miDireccion);
 		return usuarioDAO.saveUsuario(miUsuario);
 	}
 	

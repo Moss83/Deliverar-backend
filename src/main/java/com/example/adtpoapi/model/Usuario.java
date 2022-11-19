@@ -28,13 +28,14 @@ public class Usuario {
 	@Column(name = "codigo_verificacion")
 	private Integer codigoVerificacion;
 	private String avatar;
+	private Integer dni;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iddireccion")
 	private Direccion direccion;
 	
 	
 	public Usuario(Integer idUsuario, String mail, String nombre, String contraseña, String redSocial,
-			Integer habilitado, Integer codigoVerificacion, String avatar, Direccion direccion) {
+			Integer habilitado, Integer codigoVerificacion, String avatar, Integer dni, Direccion direccion) {
 		this.idusuario = idUsuario;
 		this.mail = mail;
 		this.nombre = nombre;
@@ -43,15 +44,17 @@ public class Usuario {
 		this.habilitado = habilitado;
 		this.codigoVerificacion = codigoVerificacion;
 		this.avatar = avatar;
+		this.dni = dni;
 		this.direccion = direccion;
 	}
 	
-	public Usuario(String mail, String nombre, String contraseña, Integer habilitado, String avatar, Direccion direccion) {
+	public Usuario(String mail, String nombre, String contraseña, Integer habilitado, String avatar, Integer dni, Direccion direccion) {
 		this.mail = mail;
 		this.nombre = nombre;
 		this.contraseña = contraseña;
 		this.habilitado = habilitado;
 		this.avatar = avatar;
+		this.dni = dni;
 		this.direccion = direccion;
 	}
 
@@ -109,6 +112,14 @@ public class Usuario {
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
+	public Integer getDni() {
+		return dni;
+	}
+
+	public void setDni(Integer dni) {
+		this.dni = dni;
+	}
+
 	public Direccion getDireccion() {
 		return direccion;
 	}
@@ -117,6 +128,6 @@ public class Usuario {
 	}
 	
 	public UsuarioView toView() {
-		return new UsuarioView(idusuario, mail, nombre, contraseña, redSocial, habilitado, codigoVerificacion, avatar, direccion.toView());
+		return new UsuarioView(idusuario, mail, nombre, contraseña, redSocial, habilitado, codigoVerificacion, avatar, dni, direccion.toView());
 	}
 }
