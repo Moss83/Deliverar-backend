@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.adtpoapi.controlador.Controlador;
+import com.example.adtpoapi.view.OrdenView;
 import com.example.adtpoapi.view.ProductoView;
 import com.example.adtpoapi.view.RestauranteView;
 import com.example.adtpoapi.view.UsuarioView;
@@ -66,6 +67,12 @@ public class RestController {
 	@PostMapping("/updateUsuario")
 	public void updateUsuario(@RequestBody UsuarioView usuario) {
 		controlador.actualizarUsuario(usuario);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:19006")
+	@PostMapping("/addOrden")
+	public OrdenView addOrden(@RequestBody OrdenView orden) {
+		return controlador.addOrden(orden);
 	}
 	
 	@GetMapping("/")

@@ -8,15 +8,21 @@ import org.springframework.stereotype.Service;
 
 import com.example.adtpoapi.FiltroVO;
 import com.example.adtpoapi.dao.DireccionDAO;
+import com.example.adtpoapi.dao.OrdenDAO;
 import com.example.adtpoapi.dao.ProductoDAO;
 import com.example.adtpoapi.dao.RestauranteDAO;
 import com.example.adtpoapi.dao.UsuarioDAO;
 import com.example.adtpoapi.exception.NoContentException;
 import com.example.adtpoapi.model.Direccion;
+import com.example.adtpoapi.model.Orden;
+import com.example.adtpoapi.model.Producto;
+import com.example.adtpoapi.model.ProductosOrden;
 import com.example.adtpoapi.model.Restaurante;
 import com.example.adtpoapi.model.Usuario;
 import com.example.adtpoapi.view.DireccionView;
+import com.example.adtpoapi.view.OrdenView;
 import com.example.adtpoapi.view.ProductoView;
+import com.example.adtpoapi.view.ProductosOrdenView;
 import com.example.adtpoapi.view.RestauranteView;
 import com.example.adtpoapi.view.UsuarioView;
 
@@ -34,6 +40,9 @@ public class Controlador {
 	
 	@Autowired
 	private DireccionDAO direccionDAO;
+	
+	@Autowired
+	private OrdenDAO ordenDAO;
 	
 	public UsuarioView login (UsuarioView usuario) throws NoContentException {
 		if (usuario.getIdUsuario() != null) {
@@ -130,6 +139,18 @@ public class Controlador {
 		}
 		usuarioDAO.saveUsuario(miUsuario);
 		throw new NoContentException();
+	}
+
+	public OrdenView addOrden(OrdenView orden) {
+		Direccion miDireccion = direccionDAO.getDireccionById(orden.getDireccion().getIdDireccion());
+		List<ProductosOrden> misProdsPedidos = new ArrayList<ProductosOrden>();
+		
+		for (ProductosOrdenView p: orden.getProductos()) {
+			Producto miProducto = productoDAO.getProductoById(p.getProducto().getIdProducto());
+			misProdsPedidos.add(new ProductosOrden(miProducto, p.getCantidad()));
+		}
+		Orden miOrden = new Orden(miDireccion, misProdsPedidos);
+		return ordenDAO.saveOrden(miOrden).toView();
 	}
 	
 }
