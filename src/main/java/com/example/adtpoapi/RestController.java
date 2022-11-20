@@ -73,6 +73,7 @@ public class RestController {
 	@CrossOrigin(origins = "http://localhost:19006")
 	@PostMapping("/addOrden")
 	public OrdenView addOrden(@RequestBody OrdenView orden) {
+		System.out.println(orden);
 		return controlador.addOrden(orden);
 	}
 	

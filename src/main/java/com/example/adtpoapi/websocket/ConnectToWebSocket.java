@@ -97,7 +97,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 				  System.out.println("Franquicia mando otra cosa");
 			  }
 		  }
-		  else if (msg.getEmisor().equalsIgnoreCase("pagos")) {
+		  else if (msg.getEmisor().equalsIgnoreCase("partners")) {
 			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("confirmacion")) {
 				  
 			  }
@@ -106,7 +106,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 			  }
 		  }
 		  else {
-			  System.out.println("No quiero pagos ni prueba");
+			  System.out.println("Me llegó algo de otra cosa");
 		  }
 	   }
 	   
