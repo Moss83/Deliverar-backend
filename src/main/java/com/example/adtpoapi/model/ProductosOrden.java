@@ -21,12 +21,15 @@ public class ProductosOrden {
 	@JoinColumn(name = "idproducto")
 	private Producto producto;
 	private Integer cantidad;
+	@ManyToOne()
+	@JoinColumn(name = "idorden")
+	private Orden orden;
 	
-	
-	public ProductosOrden(Integer idproductosorden, Producto producto, Integer cantidad) {
+	public ProductosOrden(Integer idproductosorden, Producto producto, Integer cantidad, Orden orden) {
 		this.idproductosorden = idproductosorden;
 		this.producto = producto;
 		this.cantidad = cantidad;
+		this.orden = orden;
 	}
 	
 	public ProductosOrden(Producto producto, Integer cantidad) {

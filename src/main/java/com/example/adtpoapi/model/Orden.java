@@ -29,7 +29,7 @@ public class Orden {
 	@ManyToOne()
 	@JoinColumn(name = "iddireccion")
 	private Direccion direccion;
-	@OneToMany(mappedBy = "productosorden", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "orden", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ProductosOrden> productosPedidos;
 	
