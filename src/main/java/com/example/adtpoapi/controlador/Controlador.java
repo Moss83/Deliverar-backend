@@ -8,23 +8,28 @@ import org.springframework.stereotype.Service;
 
 import com.example.adtpoapi.FiltroVO;
 import com.example.adtpoapi.dao.DireccionDAO;
+import com.example.adtpoapi.dao.MensajeFranquiciaDAO;
 import com.example.adtpoapi.dao.OrdenDAO;
 import com.example.adtpoapi.dao.ProductoDAO;
 import com.example.adtpoapi.dao.RestauranteDAO;
 import com.example.adtpoapi.dao.UsuarioDAO;
 import com.example.adtpoapi.exception.NoContentException;
 import com.example.adtpoapi.model.Direccion;
+import com.example.adtpoapi.model.MensajeFranquicia;
 import com.example.adtpoapi.model.Orden;
 import com.example.adtpoapi.model.Producto;
 import com.example.adtpoapi.model.ProductosOrden;
 import com.example.adtpoapi.model.Restaurante;
 import com.example.adtpoapi.model.Usuario;
+import com.example.adtpoapi.view.ConfirmacionFranquiciaView;
 import com.example.adtpoapi.view.DireccionView;
 import com.example.adtpoapi.view.OrdenView;
 import com.example.adtpoapi.view.ProductoView;
 import com.example.adtpoapi.view.ProductosOrdenView;
 import com.example.adtpoapi.view.RestauranteView;
 import com.example.adtpoapi.view.UsuarioView;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @Service
 public class Controlador {
@@ -43,6 +48,9 @@ public class Controlador {
 	
 	@Autowired
 	private OrdenDAO ordenDAO;
+	
+	@Autowired
+	private MensajeFranquiciaDAO mensajeFranquiciaDAO;
 	
 	public UsuarioView login (UsuarioView usuario) throws NoContentException {
 		if (usuario.getIdUsuario() != null) {
@@ -151,6 +159,17 @@ public class Controlador {
 		}
 		Orden miOrden = new Orden(miDireccion, misProdsPedidos);
 		return ordenDAO.saveOrden(miOrden).toView();
+	}
+	
+	public void addMensajeFranquicia(MensajeFranquicia mensaje) {
+		mensajeFranquiciaDAO.saveMensaje(mensaje);
+	}
+
+	public ConfirmacionFranquiciaView getConfirmacionFranquicia(Integer idorden) {
+		MensajeFranquicia mensaje = mensajeFranquiciaDAO.getMensaje(idorden);
+		JsonParser parser = new JsonParser();
+		JsonObject contenido = parser.parse(mensaje.getMensaje()).getAsJsonObject();
+		return new ConfirmacionFranquiciaView(idorden, contenido.get("estado").getAsString());
 	}
 	
 }

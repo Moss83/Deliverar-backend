@@ -1,17 +1,23 @@
 package com.example.adtpoapi.websocket;
 
+import java.lang.reflect.Type;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 
+import com.example.adtpoapi.controlador.Controlador;
+import com.example.adtpoapi.model.MensajeFranquicia;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.lang.reflect.Type;
-
 
 public class ConnectToWebSocket extends StompSessionHandlerAdapter{
+	
+	 @Autowired
+	 private Controlador controlador;
 	
 	 @Override
 	 public void afterConnected(StompSession session, StompHeaders headers) {
@@ -34,14 +40,34 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 		  
 		  if (msg.getEmisor().equalsIgnoreCase("repartidor")) {
 			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("en camino")) {
-				  System.out.println("Editar");
+				  System.out.println("En camino");
+			  }
+			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("entregado")){
+				  System.out.println("Entregado");
 			  }
 			  else {
-				  System.out.println("Nada");
+				  System.out.println("Repartidor mando otra cosa");  
 			  }
 		  }
 		  else if (msg.getEmisor().equalsIgnoreCase("franquicia")) {
-			  System.out.println("Editar");
+			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("restaurante")) {
+				  //como pija sé cual restaurante es. Actualizar restaurante y productos.
+			  }
+			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("confirmacion")) {
+				  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("idorden").getAsInt(), contenido.get("mensaje").getAsString());
+				  controlador.addMensajeFranquicia(mensaje);
+			  }
+			  else {
+				  System.out.println("Franquicia mando otra cosa");
+			  }
+		  }
+		  else if (msg.getEmisor().equalsIgnoreCase("pagos")) {
+			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("confirmacion")) {
+				  
+			  }
+			  else {
+				  System.out.println("Pagos mando otra cosa");
+			  }
 		  }
 		  else {
 			  System.out.println("No quiero pagos ni prueba");
