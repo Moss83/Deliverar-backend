@@ -10,14 +10,14 @@ public class OrdenView implements Serializable {
 	 */
 	private static final long serialVersionUID = -1783187733587684783L;
 	private Integer idorden;
-	private DireccionView direccion;
-	private List<ProductosOrdenView> productosPedidos;
+	private Integer idDireccion;
+	private List<ProductosOrdenView> productos;
 	
 	
-	public OrdenView(Integer idorden, DireccionView direccion, List<ProductosOrdenView> productos) {
+	public OrdenView(Integer idorden, Integer direccion, List<ProductosOrdenView> productos) {
 		this.idorden = idorden;
-		this.direccion = direccion;
-		this.productosPedidos = productos;
+		this.idDireccion = direccion;
+		this.productos = productos;
 	}
 	
 	public OrdenView() {}
@@ -28,24 +28,24 @@ public class OrdenView implements Serializable {
 	public void setIdorden(Integer idorden) {
 		this.idorden = idorden;
 	}
-	public DireccionView getDireccion() {
-		return direccion;
+	public Integer getIdDireccion() {
+		return idDireccion;
 	}
-	public void setDireccion(DireccionView direccion) {
-		this.direccion = direccion;
+	public void setIdDireccion(Integer direccion) {
+		this.idDireccion = direccion;
 	}
 
 	public List<ProductosOrdenView> getProductos() {
-		return productosPedidos;
+		return productos;
 	}
 
 	public void setProductos(List<ProductosOrdenView> productos) {
-		this.productosPedidos = productos;
+		this.productos = productos;
 	}
 
 	@Override
 	public String toString() {
-		return "OrdenView [idorden=" + idorden + ", direccion=" + direccion + "]";
+		return "OrdenView [idorden=" + idorden + ", direccion=" + idDireccion + "]";
 	}
 	
 	

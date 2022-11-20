@@ -64,7 +64,7 @@ public class ProductosOrden {
 	}
 	
 	public ProductosOrdenView toView() {
-		return new ProductosOrdenView(idproductosorden, producto.toViewSimple(), cantidad);
+		return new ProductosOrdenView(idproductosorden, producto.getIdProducto(), cantidad);
 	}
 	
 }

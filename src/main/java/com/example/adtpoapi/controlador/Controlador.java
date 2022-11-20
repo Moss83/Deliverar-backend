@@ -150,11 +150,11 @@ public class Controlador {
 	}
 
 	public OrdenView addOrden(OrdenView orden) {
-		Direccion miDireccion = direccionDAO.getDireccionById(orden.getDireccion().getIdDireccion());
+		Direccion miDireccion = direccionDAO.getDireccionById(orden.getIdDireccion());
 		List<ProductosOrden> misProdsPedidos = new ArrayList<ProductosOrden>();
 		
 		for (ProductosOrdenView p: orden.getProductos()) {
-			Producto miProducto = productoDAO.getProductoById(p.getProducto().getIdProducto());
+			Producto miProducto = productoDAO.getProductoById(p.getIdProducto());
 			misProdsPedidos.add(new ProductosOrden(miProducto, p.getCantidad()));
 		}
 		Orden miOrden = new Orden(miDireccion, misProdsPedidos);

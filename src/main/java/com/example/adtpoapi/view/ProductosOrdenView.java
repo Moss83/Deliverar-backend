@@ -9,13 +9,13 @@ public class ProductosOrdenView implements Serializable {
 	 */
 	private static final long serialVersionUID = -9214544355600823402L;
 	private Integer idproductosorden;
-	private ProductoView producto;
+	private Integer idProducto;
 	private Integer cantidad;
 	
 	
-	public ProductosOrdenView(Integer idproductosorden, ProductoView producto, Integer cantidad) {
+	public ProductosOrdenView(Integer idproductosorden, Integer producto, Integer cantidad) {
 		this.idproductosorden = idproductosorden;
-		this.producto = producto;
+		this.idProducto = producto;
 		this.cantidad = cantidad;
 	}
 	
@@ -29,12 +29,12 @@ public class ProductosOrdenView implements Serializable {
 		this.idproductosorden = idproductosorden;
 	}
 
-	public ProductoView getProducto() {
-		return producto;
+	public Integer getIdProducto() {
+		return idProducto;
 	}
 
-	public void setProducto(ProductoView producto) {
-		this.producto = producto;
+	public void setIdProducto(Integer producto) {
+		this.idProducto = producto;
 	}
 
 	public Integer getCantidad() {

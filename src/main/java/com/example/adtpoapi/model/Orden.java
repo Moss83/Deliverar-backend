@@ -74,7 +74,7 @@ public class Orden {
 		for (ProductosOrden p: productosPedidos) {
 			productosv.add(p.toView());
 		}
-		return new OrdenView(idorden, direccion.toView(), productosv);
+		return new OrdenView(idorden, direccion.getIdDireccion(), productosv);
 	}
 	
 }
