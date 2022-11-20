@@ -46,7 +46,10 @@ public class Direccion {
 		this.provincia = provincia;
 	}
 
-
+	public Direccion(String calle, Integer altura) {
+		this.calle = calle;
+		this.altura = altura;
+	}
 
 	public Direccion() {}
 	

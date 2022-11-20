@@ -54,6 +54,14 @@ public class Producto {
 		this.ingredientes = ingredientes;
 	}
 	
+	public Producto(Integer idproducto, String nombre, String foto, Double precio, List<Ingrediente> ingredientes) {
+		this.idproducto = idproducto;
+		this.nombre = nombre;
+		this.foto = foto;
+		this.precio = precio;
+		this.ingredientes = ingredientes;
+	}
+
 	public Producto() {}
 	
 	public Integer getIdProducto() {

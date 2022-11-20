@@ -172,4 +172,8 @@ public class Controlador {
 		return new ConfirmacionFranquiciaView(idorden, contenido.get("estado").getAsString());
 	}
 	
+	public void upsertRestaurant(Restaurante restaurante) {
+		restauranteDAO.saveRestaurante(restaurante);
+	}
+	
 }

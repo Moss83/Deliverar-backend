@@ -24,5 +24,8 @@ public class RestauranteDAO {
 		return restauranteRepository.findById(idRestaurante).orElseThrow(() -> new NoContentException());
 	}
 	
+	public void saveRestaurante(Restaurante restaurante) {
+		restauranteRepository.save(restaurante);
+	}
 	
 }

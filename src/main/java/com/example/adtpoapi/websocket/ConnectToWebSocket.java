@@ -1,6 +1,8 @@
 package com.example.adtpoapi.websocket;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -9,7 +11,12 @@ import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 
 import com.example.adtpoapi.controlador.Controlador;
+import com.example.adtpoapi.model.Direccion;
+import com.example.adtpoapi.model.Ingrediente;
 import com.example.adtpoapi.model.MensajeFranquicia;
+import com.example.adtpoapi.model.Producto;
+import com.example.adtpoapi.model.Restaurante;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -51,7 +58,36 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 		  }
 		  else if (msg.getEmisor().equalsIgnoreCase("franquicia")) {
 			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("restaurante")) {
-				  //como pija sé cual restaurante es. Actualizar restaurante y productos.
+				  List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+				  List<Producto> productos = new ArrayList<Producto>();
+				  Restaurante restaurante;
+				  JsonObject mensaje = contenido.get("mensaje").getAsJsonObject();
+				  for (JsonElement p: mensaje.get("meals").getAsJsonArray()) {
+					  JsonObject po = p.getAsJsonObject();
+					  for (JsonElement i: po.get("ingredients").getAsJsonArray()) {
+						  JsonObject io = i.getAsJsonObject();
+						  ingredientes.add(new Ingrediente(io.get("ingredient_id").getAsInt(), io.get("name").getAsString()));
+					  }
+					  productos.add(new Producto(po.get("meal_id").getAsInt(), po.get("name").getAsString(), po.get("photo_url").getAsString(), po.get("price").getAsDouble(), ingredientes));
+					  ingredientes.clear();
+				  }
+				  String[] listaDireccion = mensaje.get("franchise_address").getAsString().split(" ");
+				  String calle = "";
+				  String altura = "";
+				  for (int j = 0; j < listaDireccion.length; j++) {
+					  if (j < listaDireccion.length - 2) {
+						  calle += listaDireccion[j] + " ";
+					  }
+					  else if (j == listaDireccion.length - 1) {
+						  calle += listaDireccion[j];
+					  }
+					  else {
+						  altura = listaDireccion[j];
+					  }
+				  }
+				  Direccion direccion = new Direccion(calle, Integer.parseInt(altura));
+				  restaurante = new Restaurante(mensaje.get("name").getAsString(), direccion, productos);
+				  controlador.upsertRestaurant(restaurante);
 			  }
 			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("confirmacion")) {
 				  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("idorden").getAsInt(), contenido.get("mensaje").getAsString());

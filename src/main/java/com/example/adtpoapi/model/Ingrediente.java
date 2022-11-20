@@ -36,7 +36,12 @@ public class Ingrediente {
 		this.precio = precio;
 		this.numeroGrupo = numeroGrupo;
 	}
-	
+		
+	public Ingrediente(Integer idingrediente, String nombre) {
+		this.idingrediente = idingrediente;
+		this.nombre = nombre;
+	}
+
 	public Ingrediente() {}
 
 	public Integer getIdIngrediente() {

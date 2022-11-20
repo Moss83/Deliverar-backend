@@ -66,6 +66,12 @@ public class Restaurante {
 		this.mediosDePago = mediosDePago;
 	}
 	
+	public Restaurante(String nombre, Direccion direccion, List<Producto> productos) {
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.productos = productos;
+	}
+
 	public Restaurante() {}
 	
 	public Integer getIdRestaurante() {
