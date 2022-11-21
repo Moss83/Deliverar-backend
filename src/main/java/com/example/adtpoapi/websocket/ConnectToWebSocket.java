@@ -90,7 +90,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  }
 				  }
 				  Direccion direccion = new Direccion(calle, Integer.parseInt(altura));
-				  restaurante = new Restaurante(franquicia.get("_id").getAsString(), franquicia.get("nombre").getAsString(), direccion, franquicia.get("foto").getAsString(), productos);
+				  restaurante = new Restaurante(franquicia.get("_id").getAsString(), franquicia.get("nombre").getAsString(), direccion, franquicia.get("foto_url").getAsString(), productos);
 				  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 				  controlador.upsertRestaurant(restaurante);
 			  }
