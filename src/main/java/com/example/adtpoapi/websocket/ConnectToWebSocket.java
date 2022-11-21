@@ -61,18 +61,18 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 		  }
 		  else if (msg.getEmisor().equalsIgnoreCase("franquicia")) {
 			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("listado")) {
-				  List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+				  
 				  List<Producto> productos = new ArrayList<Producto>();
 				  Restaurante restaurante;
 				  JsonObject mensaje = contenido.get("mensaje").getAsJsonObject();
 				  for (JsonElement p: mensaje.get("meals").getAsJsonArray()) {
 					  JsonObject po = p.getAsJsonObject();
+					  List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 					  for (JsonElement i: po.get("productos").getAsJsonArray()) {
 						  JsonObject io = i.getAsJsonObject();
 						  ingredientes.add(new Ingrediente(io.get("_id").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt()));
 					  }
 					  productos.add(new Producto(po.get("_id").getAsString(), po.get("nombre").getAsString(), po.get("descripcion").getAsString(), po.get("url_foto").getAsString(), po.get("precio").getAsDouble(), ingredientes));
-					  ingredientes.clear();
 				  }
 				  JsonObject franquicia = mensaje.get("franquicia").getAsJsonObject();
 				  String[] listaDireccion = franquicia.get("direccion").getAsString().split(" ");
