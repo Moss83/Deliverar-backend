@@ -21,6 +21,7 @@ public class Ingrediente {
 	@ManyToOne()
 	@JoinColumn(name = "idproducto")
 	private Producto producto;
+	private String ingredient_id;
 	private String nombre;
 	private Integer cantidad;
 	private Double precio;
@@ -37,9 +38,10 @@ public class Ingrediente {
 		this.numeroGrupo = numeroGrupo;
 	}
 		
-	public Ingrediente(Integer idingrediente, String nombre) {
-		this.idingrediente = idingrediente;
+	public Ingrediente(String ingredient_id, String nombre, Integer cantidad) {
+		this.ingredient_id = ingredient_id;
 		this.nombre = nombre;
+		this.cantidad = cantidad;
 	}
 
 	public Ingrediente() {}
@@ -56,6 +58,14 @@ public class Ingrediente {
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
+	public String getIngredient_id() {
+		return ingredient_id;
+	}
+
+	public void setIngredient_id(String ingredient_id) {
+		this.ingredient_id = ingredient_id;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

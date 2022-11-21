@@ -11,11 +11,10 @@ import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 
 import com.example.adtpoapi.controlador.Controlador;
-import com.example.adtpoapi.model.Direccion;
 import com.example.adtpoapi.model.Ingrediente;
 import com.example.adtpoapi.model.MensajeFranquicia;
 import com.example.adtpoapi.model.Producto;
-import com.example.adtpoapi.model.Restaurante;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -52,26 +51,28 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("entregado")){
 				  System.out.println("Entregado");
 			  }
+			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("coordenadas")) {
+				  System.out.println("Coordenadas Update");
+			  }
 			  else {
 				  System.out.println("Repartidor mando otra cosa");  
 			  }
 		  }
 		  else if (msg.getEmisor().equalsIgnoreCase("franquicia")) {
-			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("restaurante")) {
+			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("listado")) {
 				  List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 				  List<Producto> productos = new ArrayList<Producto>();
-				  Restaurante restaurante;
-				  JsonObject mensaje = contenido.get("mensaje").getAsJsonObject();
-				  for (JsonElement p: mensaje.get("meals").getAsJsonArray()) {
+				  JsonArray mensaje = contenido.get("mensaje").getAsJsonArray();
+				  for (JsonElement p: mensaje) {
 					  JsonObject po = p.getAsJsonObject();
-					  for (JsonElement i: po.get("ingredients").getAsJsonArray()) {
+					  for (JsonElement i: po.get("productos").getAsJsonArray()) {
 						  JsonObject io = i.getAsJsonObject();
-						  ingredientes.add(new Ingrediente(io.get("ingredient_id").getAsInt(), io.get("name").getAsString()));
+						  ingredientes.add(new Ingrediente(io.get("_id").getAsJsonObject().get("$oid").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt()));
 					  }
-					  productos.add(new Producto(po.get("meal_id").getAsInt(), po.get("name").getAsString(), po.get("photo_url").getAsString(), po.get("price").getAsDouble(), ingredientes));
+					  productos.add(new Producto(po.get("_id").getAsJsonObject().get("$oid").getAsString(), po.get("nombre").getAsString(), po.get("descripcion").getAsString(), po.get("url_foto").getAsString(), po.get("precio").getAsDouble(), ingredientes));
 					  ingredientes.clear();
 				  }
-				  String[] listaDireccion = mensaje.get("franchise_address").getAsString().split(" ");
+				  /*String[] listaDireccion = mensaje.get("franchise_address").getAsString().split(" ");
 				  String calle = "";
 				  String altura = "";
 				  for (int j = 0; j < listaDireccion.length; j++) {
@@ -86,8 +87,9 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  }
 				  }
 				  Direccion direccion = new Direccion(calle, Integer.parseInt(altura));
-				  restaurante = new Restaurante(mensaje.get("name").getAsString(), direccion, productos);
-				  controlador.upsertRestaurant(restaurante);
+				  restaurante = new Restaurante(mensaje.get("name").getAsString(), direccion, productos);*/
+				  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
+				  controlador.upsertRestaurant(productos);
 			  }
 			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("confirmacion")) {
 				  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("idorden").getAsInt(), contenido.get("mensaje").getAsString());
@@ -106,7 +108,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 			  }
 		  }
 		  else {
-			  System.out.println("Me llegó algo de otra cosa");
+			  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 		  }
 	   }
 	   

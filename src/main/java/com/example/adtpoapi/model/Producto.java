@@ -29,6 +29,7 @@ public class Producto {
 	@ManyToOne()
 	@JoinColumn(name = "idrestaurante")
 	private Restaurante restaurante;
+	private String meal_id;
 	private String categoria;
 	private String nombre;
 	private String descripcion;
@@ -54,9 +55,10 @@ public class Producto {
 		this.ingredientes = ingredientes;
 	}
 	
-	public Producto(Integer idproducto, String nombre, String foto, Double precio, List<Ingrediente> ingredientes) {
-		this.idproducto = idproducto;
+	public Producto(String meal_id, String nombre, String descripcion, String foto, Double precio, List<Ingrediente> ingredientes) {
+		this.meal_id = meal_id;
 		this.nombre = nombre;
+		this.descripcion = descripcion;
 		this.foto = foto;
 		this.precio = precio;
 		this.ingredientes = ingredientes;
@@ -76,6 +78,14 @@ public class Producto {
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
 	}
+	public String getMeal_id() {
+		return meal_id;
+	}
+
+	public void setMeal_id(String meal_id) {
+		this.meal_id = meal_id;
+	}
+
 	public String getCategoria() {
 		return categoria;
 	}

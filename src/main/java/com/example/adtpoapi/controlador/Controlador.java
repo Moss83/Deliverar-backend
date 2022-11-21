@@ -172,8 +172,10 @@ public class Controlador {
 		return new ConfirmacionFranquiciaView(idorden, contenido.get("estado").getAsString());
 	}
 	
-	public void upsertRestaurant(Restaurante restaurante) {
-		restauranteDAO.saveRestaurante(restaurante);
+	public void upsertRestaurant(List<Producto> productos) {
+		Restaurante miRest = restauranteDAO.getRestauranteById(1);
+		miRest.setProductos(productos);
+		restauranteDAO.saveRestaurante(miRest);
 	}
 	
 }
