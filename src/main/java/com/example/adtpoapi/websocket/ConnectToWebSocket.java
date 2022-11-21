@@ -69,9 +69,9 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  JsonObject po = p.getAsJsonObject();
 					  for (JsonElement i: po.get("productos").getAsJsonArray()) {
 						  JsonObject io = i.getAsJsonObject();
-						  ingredientes.add(new Ingrediente(io.get("_id").getAsJsonObject().get("$oid").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt()));
+						  ingredientes.add(new Ingrediente(io.get("_id").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt()));
 					  }
-					  productos.add(new Producto(po.get("_id").getAsJsonObject().get("$oid").getAsString(), po.get("nombre").getAsString(), po.get("descripcion").getAsString(), po.get("url_foto").getAsString(), po.get("precio").getAsDouble(), ingredientes));
+					  productos.add(new Producto(po.get("_id").getAsString(), po.get("nombre").getAsString(), po.get("descripcion").getAsString(), po.get("url_foto").getAsString(), po.get("precio").getAsDouble(), ingredientes));
 					  ingredientes.clear();
 				  }
 				  JsonObject franquicia = mensaje.get("franquicia").getAsJsonObject();
@@ -95,7 +95,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 				  controlador.upsertRestaurant(restaurante);
 			  }
 			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-pedido")) {
-				  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("order_id").getAsString(), contenido.get("mensaje").getAsString());
+				  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("idorden").getAsInt(), contenido.get("mensaje").getAsString());
 				  controlador.addMensajeFranquicia(mensaje);
 				  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 			  }

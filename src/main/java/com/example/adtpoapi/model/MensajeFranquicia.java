@@ -14,17 +14,17 @@ public class MensajeFranquicia {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idmensaje;
 	private String tipo;
-	private String identificador;
+	private Integer identificador;
 	private String mensaje;
 	
-	public MensajeFranquicia(Integer idmensaje, String tipo, String identificador, String mensaje) {
+	public MensajeFranquicia(Integer idmensaje, String tipo, Integer identificador, String mensaje) {
 		this.idmensaje = idmensaje;
 		this.tipo = tipo;
 		this.identificador = identificador;
 		this.mensaje = mensaje;
 	}
 	
-	public MensajeFranquicia(String tipo, String identificador, String mensaje) {
+	public MensajeFranquicia(String tipo, Integer identificador, String mensaje) {
 		this.tipo = tipo;
 		this.identificador = identificador;
 		this.mensaje = mensaje;
@@ -45,10 +45,10 @@ public class MensajeFranquicia {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public String getIdentificador() {
+	public Integer getIdentificador() {
 		return identificador;
 	}
-	public void setIdentificador(String identificador) {
+	public void setIdentificador(Integer identificador) {
 		this.identificador = identificador;
 	}
 	public String getMensaje() {
