@@ -36,6 +36,7 @@ public class Restaurante {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "iddireccion")
 	private Direccion direccion;
+	private String franchise_id;
 	private String foto;
 	@Column(name = "promedio_calificaciones")
 	private Double promedioCalificaciones;
@@ -66,9 +67,11 @@ public class Restaurante {
 		this.mediosDePago = mediosDePago;
 	}
 	
-	public Restaurante(String nombre, Direccion direccion, List<Producto> productos) {
+	public Restaurante(String franchise_id, String nombre, Direccion direccion, String foto, List<Producto> productos) {
+		this.franchise_id = franchise_id;
 		this.nombre = nombre;
 		this.direccion = direccion;
+		this.foto = foto;
 		this.productos = productos;
 	}
 
@@ -92,6 +95,14 @@ public class Restaurante {
 	public void setDireccion(Direccion direccion) {
 		this.direccion = direccion;
 	}
+	public String getFranchise_id() {
+		return franchise_id;
+	}
+
+	public void setFranchise_id(String franchise_id) {
+		this.franchise_id = franchise_id;
+	}
+
 	public String getFoto() {
 		return foto;
 	}
