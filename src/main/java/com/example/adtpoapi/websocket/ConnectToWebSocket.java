@@ -82,7 +82,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  if (j < listaDireccion.length - 2) {
 						  calle += listaDireccion[j] + " ";
 					  }
-					  else if (j == listaDireccion.length - 1) {
+					  else if (j == listaDireccion.length - 2) {
 						  calle += listaDireccion[j];
 					  }
 					  else {
