@@ -1,5 +1,6 @@
 package com.example.adtpoapi.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,16 @@ public class IngredienteDAO {
 		}
 	}
 	
+	public void eliminarDuplicados(List<String> duplicados) {
+		for (String i: duplicados) {
+			Example<Ingrediente> example = Example.of(new Ingrediente(i));
+			List<Ingrediente> ings = ingredienteRepository.findAll(example);
+			for (int j = 0; j < ings.size(); j++) {
+				if (j != 0) {
+					ingredienteRepository.deleteById(ings.get(j).getIdIngrediente());
+				}
+			}
+		}
+	}
 	
 }

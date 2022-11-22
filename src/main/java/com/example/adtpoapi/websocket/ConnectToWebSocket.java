@@ -65,6 +65,8 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 				  Ingrediente ing;
 				  Producto prod;
 				  Restaurante restaurante;
+				  List<String> duplicados = new ArrayList<String>();
+				  List<String> ingsids = new ArrayList<String>();
 				  JsonObject mensaje = contenido.get("mensaje").getAsJsonObject();
 				  JsonObject franquicia = mensaje.get("franquicia").getAsJsonObject();
 				  String[] listaDireccion = franquicia.get("direccion").getAsString().split(" ");
@@ -99,6 +101,12 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  for (JsonElement i: po.get("productos").getAsJsonArray()) {
 						  JsonObject io = i.getAsJsonObject();
 						  ing = new Ingrediente(io.get("_id").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt());
+						  if (ingsids.contains(ing.getIngredient_id())) {
+							  duplicados.add(ing.getIngredient_id());
+						  }
+						  else {
+							  ingsids.add(ing.getIngredient_id());
+						  }
 						  Integer idIngrediente = controlador.verificarIngrediente(ing);
 						  System.out.println(idIngrediente);
 						  if (idIngrediente != 0) {
@@ -111,6 +119,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 				  restaurante.setProductos(productos);
 				  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 				  controlador.upsertRestaurant(restaurante);
+				  controlador.eliminarDuplicados(duplicados);
 			  }
 			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-pedido")) {
 				  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("idorden").getAsInt(), contenido.get("mensaje").getAsString());

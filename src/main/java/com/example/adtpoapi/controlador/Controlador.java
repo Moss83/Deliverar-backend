@@ -195,4 +195,8 @@ public class Controlador {
 		return ingredienteDAO.verificarIngrediente(ing);
 	}
 	
+	public void eliminarDuplicados(List<String> duplicados) {
+		ingredienteDAO.eliminarDuplicados(duplicados);
+	}
+	
 }
