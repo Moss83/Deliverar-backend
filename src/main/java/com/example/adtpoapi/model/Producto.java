@@ -63,6 +63,16 @@ public class Producto {
 		this.precio = precio;
 		this.ingredientes = ingredientes;
 	}
+	
+
+	public Producto(String meal_id, String nombre, String descripcion, String foto, Double precio) {
+		this.meal_id = meal_id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.foto = foto;
+		this.precio = precio;
+		this.ingredientes = new ArrayList<Ingrediente>();
+	}
 
 	public Producto() {}
 	
@@ -131,6 +141,10 @@ public class Producto {
 
 	public void setIngredientes(List<Ingrediente> ingredientes) {
 		this.ingredientes = ingredientes;
+	}
+	
+	public void addIngrediente(Ingrediente ingrediente) {
+		this.ingredientes.add(ingrediente);
 	}
 	
 	public ProductoView toView() {
