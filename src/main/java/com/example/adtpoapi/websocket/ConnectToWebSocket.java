@@ -98,7 +98,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  }
 					  for (JsonElement i: po.get("productos").getAsJsonArray()) {
 						  JsonObject io = i.getAsJsonObject();
-						  ing = new Ingrediente(io.get("_id").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt());
+						  ing = new Ingrediente(io.get("_id").getAsString(), prod, io.get("descripcion").getAsString(), io.get("cantidad").getAsInt());
 						  Integer idIngrediente = controlador.verificarIngrediente(ing);
 						  System.out.println(idIngrediente);
 						  if (idIngrediente != 0) {

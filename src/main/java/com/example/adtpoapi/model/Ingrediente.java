@@ -38,8 +38,9 @@ public class Ingrediente {
 		this.numeroGrupo = numeroGrupo;
 	}
 		
-	public Ingrediente(String ingredient_id, String nombre, Integer cantidad) {
+	public Ingrediente(String ingredient_id, Producto producto, String nombre, Integer cantidad) {
 		this.ingredient_id = ingredient_id;
+		this.producto = producto;
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 	}
