@@ -20,11 +20,10 @@ public class RestauranteView implements Serializable{
 	private Double costoEnvio;
 	private List<ProductoView> productos;
 	private List<HorarioView> horarios;
-	private List<MedioDePagoView> mediosDePago;
 	
 	public RestauranteView(Integer idRestaurante, String franchise_id, String nombre, DireccionView direccion, String foto, Double promedioCalificaciones,
 			Double minimoCompra, String tipo, Double costoEnvio, List<ProductoView> productos,
-			List<HorarioView> horarios, List<MedioDePagoView> mediosDePago) {
+			List<HorarioView> horarios) {
 		this.idrestaurante = idRestaurante;
 		this.franchise_id = franchise_id;
 		this.nombre = nombre;
@@ -36,7 +35,6 @@ public class RestauranteView implements Serializable{
 		this.costoEnvio = costoEnvio;
 		this.productos = productos;
 		this.horarios = horarios;
-		this.mediosDePago = mediosDePago;
 	}
 	
 	public RestauranteView(Integer idRestaurante, String franchise_id, String nombre, DireccionView direccion, String foto,
@@ -140,13 +138,6 @@ public class RestauranteView implements Serializable{
 		this.horarios = horarios;
 	}
 
-	public List<MedioDePagoView> getMediosDePago() {
-		return mediosDePago;
-	}
-
-	public void setMediosDePago(List<MedioDePagoView> mediosDePago) {
-		this.mediosDePago = mediosDePago;
-	}
 
 	@Override
 	public String toString() {

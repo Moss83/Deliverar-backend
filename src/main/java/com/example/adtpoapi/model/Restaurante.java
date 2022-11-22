@@ -7,13 +7,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,7 +19,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.example.adtpoapi.view.HorarioView;
-import com.example.adtpoapi.view.MedioDePagoView;
 import com.example.adtpoapi.view.ProductoView;
 import com.example.adtpoapi.view.RestauranteView;
 
@@ -49,11 +45,8 @@ public class Restaurante {
 	@OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Horario> horarios;
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-	@JoinTable(name = "pagorestaurante", joinColumns = {@JoinColumn(name = "idrestaurante")}, inverseJoinColumns = {@JoinColumn(name = "idmedio")})
-	private List<MedioDePago> mediosDePago;
 	
-	public Restaurante(Integer idRestaurante, String nombre, Direccion direccion, String foto, Double promedioCalificaciones, Double minimoCompra, String tipo, Double costoEnvio, List<Producto> productos, List<Horario> horarios, List<MedioDePago> mediosDePago) {
+	public Restaurante(Integer idRestaurante, String nombre, Direccion direccion, String foto, Double promedioCalificaciones, Double minimoCompra, String tipo, Double costoEnvio, List<Producto> productos, List<Horario> horarios) {
 		this.idrestaurante = idRestaurante;
 		this.nombre = nombre;
 		this.direccion = direccion;
@@ -64,7 +57,6 @@ public class Restaurante {
 		this.costoEnvio = costoEnvio;
 		this.productos = productos;
 		this.horarios = horarios;
-		this.mediosDePago = mediosDePago;
 	}
 	
 	public Restaurante(String franchise_id, String nombre, Direccion direccion, String foto, List<Producto> productos) {
@@ -166,19 +158,10 @@ public class Restaurante {
 	public void setHorarios(List<Horario> horarios) {
 		this.horarios = horarios;
 	}
-
-	public List<MedioDePago> getMediosDePago() {
-		return mediosDePago;
-	}
-
-	public void setMediosDePago(List<MedioDePago> mediosDePago) {
-		this.mediosDePago = mediosDePago;
-	}
 	
 	public RestauranteView toView() {
 		List<ProductoView> productosv = new ArrayList<ProductoView>();
 		List<HorarioView> horariosv = new ArrayList<HorarioView>();
-		List<MedioDePagoView> mediosdepagov = new ArrayList<MedioDePagoView>();
 		
 		for (Producto p: productos) {
 			productosv.add(p.toViewSimple());
@@ -186,11 +169,7 @@ public class Restaurante {
 		for (Horario h: horarios) {
 			horariosv.add(h.toView());
 		}
-		for(MedioDePago m: mediosDePago) {
-			mediosdepagov.add(m.toView());
-		}
-		
-		return new RestauranteView(idrestaurante, franchise_id, nombre, direccion.toView(), foto, promedioCalificaciones, minimoCompra, tipo, costoEnvio, productosv, horariosv, mediosdepagov);
+		return new RestauranteView(idrestaurante, franchise_id, nombre, direccion.toView(), foto, promedioCalificaciones, minimoCompra, tipo, costoEnvio, productosv, horariosv);
 	}
 	
 	public RestauranteView toViewSimple() {
