@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.adtpoapi.FiltroVO;
+import com.example.adtpoapi.OrdenVO;
+import com.example.adtpoapi.ProductosOrdenVO;
 import com.example.adtpoapi.dao.DireccionDAO;
 import com.example.adtpoapi.dao.IngredienteDAO;
 import com.example.adtpoapi.dao.MensajeFranquiciaDAO;
@@ -154,7 +156,7 @@ public class Controlador {
 		throw new NoContentException();
 	}
 
-	public OrdenView addOrden(OrdenView orden) {
+	public OrdenVO addOrden(OrdenView orden) {
 		Direccion miDireccion = direccionDAO.getDireccionById(orden.getIdDireccion());
 		List<ProductosOrden> misProdsPedidos = new ArrayList<ProductosOrden>();
 		
@@ -163,7 +165,14 @@ public class Controlador {
 			misProdsPedidos.add(new ProductosOrden(miProducto, p.getCantidad()));
 		}
 		Orden miOrden = new Orden(miDireccion, misProdsPedidos);
-		return ordenDAO.saveOrden(miOrden).toView();
+		Orden ordenConId = ordenDAO.saveOrden(miOrden);
+		
+		List<ProductosOrdenVO> misProdsEnviar = new ArrayList<ProductosOrdenVO>();
+		
+		for (ProductosOrden po: misProdsPedidos) {
+			misProdsEnviar.add(new ProductosOrdenVO(po.getProducto().getMeal_id(), po.getCantidad()));
+		}
+		return new OrdenVO(ordenConId.getIdorden(), ordenConId.getDireccion().getIdDireccion(), misProdsEnviar);
 	}
 	
 	public void addMensajeFranquicia(MensajeFranquicia mensaje) {
