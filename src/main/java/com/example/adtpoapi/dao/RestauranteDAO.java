@@ -1,8 +1,10 @@
 package com.example.adtpoapi.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.example.adtpoapi.entities.RestauranteRepository;
@@ -26,6 +28,18 @@ public class RestauranteDAO {
 	
 	public void saveRestaurante(Restaurante restaurante) {
 		restauranteRepository.save(restaurante);
+	}
+
+	public int verificarRestaurante(Restaurante restaurante) {
+		Example<Restaurante> example = Example.of(new Restaurante(restaurante.getFranchise_id()));
+		Optional<Restaurante> actual = restauranteRepository.findOne(example);
+		
+		if (actual.isEmpty()) {
+			return 0;
+		}
+		else {
+			return actual.get().getIdRestaurante();
+		}
 	}
 	
 }

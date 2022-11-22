@@ -65,13 +65,20 @@ public class Producto {
 	}
 	
 
-	public Producto(String meal_id, String nombre, String descripcion, String foto, Double precio) {
+	public Producto(String meal_id, Restaurante restaurante, String nombre, String descripcion, String foto, Double precio) {
 		this.meal_id = meal_id;
+		this.restaurante = restaurante;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.foto = foto;
 		this.precio = precio;
 		this.ingredientes = new ArrayList<Ingrediente>();
+	}
+	
+	
+
+	public Producto(String meal_id) {
+		this.meal_id = meal_id;
 	}
 
 	public Producto() {}
@@ -157,7 +164,7 @@ public class Producto {
 		for (Ingrediente i: ingredientes) {
 			ingredientesv.add(i.toView());
 		}
-		return new ProductoView(idproducto, categoria, nombre, descripcion, foto, precio, tagsv, ingredientesv);
+		return new ProductoView(idproducto, meal_id, categoria, nombre, descripcion, foto, precio, tagsv, ingredientesv);
 	}
 	
 	public ProductoView toViewSimple() {

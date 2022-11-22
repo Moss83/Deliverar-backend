@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.adtpoapi.FiltroVO;
 import com.example.adtpoapi.dao.DireccionDAO;
+import com.example.adtpoapi.dao.IngredienteDAO;
 import com.example.adtpoapi.dao.MensajeFranquiciaDAO;
 import com.example.adtpoapi.dao.OrdenDAO;
 import com.example.adtpoapi.dao.ProductoDAO;
@@ -15,6 +16,7 @@ import com.example.adtpoapi.dao.RestauranteDAO;
 import com.example.adtpoapi.dao.UsuarioDAO;
 import com.example.adtpoapi.exception.NoContentException;
 import com.example.adtpoapi.model.Direccion;
+import com.example.adtpoapi.model.Ingrediente;
 import com.example.adtpoapi.model.MensajeFranquicia;
 import com.example.adtpoapi.model.Orden;
 import com.example.adtpoapi.model.Producto;
@@ -48,6 +50,9 @@ public class Controlador {
 	
 	@Autowired
 	private OrdenDAO ordenDAO;
+	
+	@Autowired
+	private IngredienteDAO ingredienteDAO;
 	
 	@Autowired
 	private MensajeFranquiciaDAO mensajeFranquiciaDAO;
@@ -174,6 +179,20 @@ public class Controlador {
 	
 	public void upsertRestaurant(Restaurante restaurante) {
 		restauranteDAO.saveRestaurante(restaurante);
+	}
+	
+	public Integer verificarRestaurante(Restaurante restaurante) {
+		return restauranteDAO.verificarRestaurante(restaurante);
+	}
+
+	public Integer verificarProducto(Producto prod) {
+		// TODO Auto-generated method stub
+		return productoDAO.verificarProducto(prod);
+	}
+
+	public Integer verificarIngrediente(Ingrediente ing) {
+		// TODO Auto-generated method stub
+		return ingredienteDAO.verificarIngrediente(ing);
 	}
 	
 }

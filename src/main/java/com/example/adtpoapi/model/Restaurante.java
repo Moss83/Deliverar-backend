@@ -75,6 +75,17 @@ public class Restaurante {
 		this.productos = productos;
 	}
 
+	public Restaurante(String nombre, Direccion direccion, String franchise_id, String foto) {
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.franchise_id = franchise_id;
+		this.foto = foto;
+	}
+	
+	public Restaurante(String franchise_id) {
+		this.franchise_id = franchise_id;
+	}
+
 	public Restaurante() {}
 	
 	public Integer getIdRestaurante() {
@@ -179,10 +190,10 @@ public class Restaurante {
 			mediosdepagov.add(m.toView());
 		}
 		
-		return new RestauranteView(idrestaurante, nombre, direccion.toView(), foto, promedioCalificaciones, minimoCompra, tipo, costoEnvio, productosv, horariosv, mediosdepagov);
+		return new RestauranteView(idrestaurante, franchise_id, nombre, direccion.toView(), foto, promedioCalificaciones, minimoCompra, tipo, costoEnvio, productosv, horariosv, mediosdepagov);
 	}
 	
 	public RestauranteView toViewSimple() {
-		return new RestauranteView(idrestaurante, nombre, direccion.toView(), foto, promedioCalificaciones, tipo);
+		return new RestauranteView(idrestaurante, franchise_id, nombre, direccion.toView(), foto, promedioCalificaciones, tipo);
 	}
 }

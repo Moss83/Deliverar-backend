@@ -10,6 +10,7 @@ public class ProductoView implements Serializable{
 	 */
 	private static final long serialVersionUID = -575794107040287837L;
 	private Integer idProducto;
+	private String meal_id;
 	private String categoria;
 	private String nombre;
 	private String descripcion;
@@ -18,9 +19,10 @@ public class ProductoView implements Serializable{
 	private List<TagView> tags;
 	private List<IngredienteView> ingredientes;
 	
-	public ProductoView(Integer idProducto, String categoria, String nombre, String descripcion, String foto,
+	public ProductoView(Integer idProducto, String meal_id, String categoria, String nombre, String descripcion, String foto,
 			Double precio, List<TagView> tags, List<IngredienteView> ingredientes) {
 		this.idProducto = idProducto;
+		this.meal_id = meal_id;
 		this.categoria = categoria;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -48,6 +50,14 @@ public class ProductoView implements Serializable{
 
 	public void setIdProducto(Integer idProducto) {
 		this.idProducto = idProducto;
+	}
+
+	public String getMeal_id() {
+		return meal_id;
+	}
+
+	public void setMeal_id(String meal_id) {
+		this.meal_id = meal_id;
 	}
 
 	public String getCategoria() {

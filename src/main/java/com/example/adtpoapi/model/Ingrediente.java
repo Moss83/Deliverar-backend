@@ -44,6 +44,10 @@ public class Ingrediente {
 		this.cantidad = cantidad;
 	}
 
+	public Ingrediente(String ingredient_id) {
+		this.ingredient_id = ingredient_id;
+	}
+
 	public Ingrediente() {}
 
 	public Integer getIdIngrediente() {

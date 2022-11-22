@@ -10,6 +10,7 @@ public class RestauranteView implements Serializable{
 	 */
 	private static final long serialVersionUID = 3955745152051166951L;
 	private Integer idrestaurante;
+	private String franchise_id;
 	private String nombre;
 	private DireccionView direccion;
 	private String foto;
@@ -21,10 +22,11 @@ public class RestauranteView implements Serializable{
 	private List<HorarioView> horarios;
 	private List<MedioDePagoView> mediosDePago;
 	
-	public RestauranteView(Integer idRestaurante, String nombre, DireccionView direccion, String foto, Double promedioCalificaciones,
+	public RestauranteView(Integer idRestaurante, String franchise_id, String nombre, DireccionView direccion, String foto, Double promedioCalificaciones,
 			Double minimoCompra, String tipo, Double costoEnvio, List<ProductoView> productos,
 			List<HorarioView> horarios, List<MedioDePagoView> mediosDePago) {
 		this.idrestaurante = idRestaurante;
+		this.franchise_id = franchise_id;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.foto = foto;
@@ -37,9 +39,10 @@ public class RestauranteView implements Serializable{
 		this.mediosDePago = mediosDePago;
 	}
 	
-	public RestauranteView(Integer idRestaurante, String nombre, DireccionView direccion, String foto,
+	public RestauranteView(Integer idRestaurante, String franchise_id, String nombre, DireccionView direccion, String foto,
 			Double promedioCalificaciones, String tipo) {
 		this.idrestaurante = idRestaurante;
+		this.franchise_id = franchise_id;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.foto = foto;
@@ -55,6 +58,14 @@ public class RestauranteView implements Serializable{
 
 	public void setIdRestaurante(Integer idRestaurante) {
 		this.idrestaurante = idRestaurante;
+	}
+
+	public String getFranchise_id() {
+		return franchise_id;
+	}
+
+	public void setFranchise_id(String franchise_id) {
+		this.franchise_id = franchise_id;
 	}
 
 	public String getNombre() {

@@ -66,16 +66,6 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 				  Producto prod;
 				  Restaurante restaurante;
 				  JsonObject mensaje = contenido.get("mensaje").getAsJsonObject();
-				  for (JsonElement p: mensaje.get("meals").getAsJsonArray()) {
-					  JsonObject po = p.getAsJsonObject();
-					  prod = new Producto(po.get("_id").getAsString(), po.get("nombre").getAsString(), po.get("descripcion").getAsString(), po.get("url_foto").getAsString(), po.get("precio").getAsDouble());
-					  for (JsonElement i: po.get("productos").getAsJsonArray()) {
-						  JsonObject io = i.getAsJsonObject();
-						  ing = new Ingrediente(io.get("_id").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt());
-						  prod.addIngrediente(ing);
-					  }
-					  productos.add(prod);
-				  }
 				  JsonObject franquicia = mensaje.get("franquicia").getAsJsonObject();
 				  String[] listaDireccion = franquicia.get("direccion").getAsString().split(" ");
 				  String calle = "";
@@ -92,7 +82,30 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  }
 				  }
 				  Direccion direccion = new Direccion(calle, Integer.parseInt(altura));
-				  restaurante = new Restaurante(franquicia.get("_id").getAsString(), franquicia.get("nombre").getAsString(), direccion, franquicia.get("foto_url").getAsString(), productos);
+				  restaurante = new Restaurante(franquicia.get("nombre").getAsString(), direccion, franquicia.get("_id").getAsString(), franquicia.get("foto_url").getAsString());
+				  Integer idRestaurante = controlador.verificarRestaurante(restaurante);
+				  if (idRestaurante != 0) {
+					  restaurante.setIdRestaurante(idRestaurante);
+				  }
+				  for (JsonElement p: mensaje.get("meals").getAsJsonArray()) {
+					  JsonObject po = p.getAsJsonObject();
+					  prod = new Producto(po.get("_id").getAsString(), restaurante, po.get("nombre").getAsString(), po.get("descripcion").getAsString(), po.get("url_foto").getAsString(), po.get("precio").getAsDouble());
+					  Integer idProducto = controlador.verificarProducto(prod);
+					  if (idProducto != 0) {
+						  prod.setIdProducto(idProducto);
+					  }
+					  for (JsonElement i: po.get("productos").getAsJsonArray()) {
+						  JsonObject io = i.getAsJsonObject();
+						  ing = new Ingrediente(io.get("_id").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt());
+						  Integer idIngrediente = controlador.verificarIngrediente(ing);
+						  if (idIngrediente != 0) {
+							  ing.setIdIngrediente(idIngrediente);
+						  }
+						  prod.addIngrediente(ing);
+					  }
+					  productos.add(prod);
+				  }
+				  restaurante.setProductos(productos);
 				  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 				  controlador.upsertRestaurant(restaurante);
 			  }
