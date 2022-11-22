@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.example.adtpoapi.view.IngredienteView;
@@ -18,9 +16,6 @@ public class Ingrediente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idingrediente;
-	@ManyToOne()
-	@JoinColumn(name = "idproducto")
-	private Producto producto;
 	private String ingredient_id;
 	private String nombre;
 	private Integer cantidad;
@@ -28,19 +23,17 @@ public class Ingrediente {
 	@Column(name = "numero_grupo")
 	private Integer numeroGrupo; //para siguiente release
 
-	public Ingrediente(Integer idIngrediente, Producto producto, String nombre, Integer cantidad, Double precio,
+	public Ingrediente(Integer idIngrediente, String nombre, Integer cantidad, Double precio,
 			Integer numeroGrupo) {
 		this.idingrediente = idIngrediente;
-		this.producto = producto;
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 		this.precio = precio;
 		this.numeroGrupo = numeroGrupo;
 	}
 		
-	public Ingrediente(String ingredient_id, Producto producto, String nombre, Integer cantidad) {
+	public Ingrediente(String ingredient_id, String nombre, Integer cantidad) {
 		this.ingredient_id = ingredient_id;
-		this.producto = producto;
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 	}
@@ -57,12 +50,7 @@ public class Ingrediente {
 	public void setIdIngrediente(Integer idIngrediente) {
 		this.idingrediente = idIngrediente;
 	}
-	public Producto getProducto() {
-		return producto;
-	}
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
+
 	public String getIngredient_id() {
 		return ingredient_id;
 	}

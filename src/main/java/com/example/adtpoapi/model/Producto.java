@@ -5,10 +5,13 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,8 +41,8 @@ public class Producto {
 	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Tag> tags;
-	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@JoinTable(name = "productoingrediente", joinColumns = {@JoinColumn(name = "idproducto")}, inverseJoinColumns = {@JoinColumn(name = "idingrediente")})
 	private List<Ingrediente> ingredientes;
 	
 	public Producto(Integer idProducto, Restaurante restaurante, String categoria, String nombre, String descripcion,
