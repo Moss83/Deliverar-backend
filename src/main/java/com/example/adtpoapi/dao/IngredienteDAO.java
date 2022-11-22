@@ -28,17 +28,10 @@ public class IngredienteDAO {
 			return actual.get().getIdIngrediente();
 		}
 	}
-	
-	public void eliminarDuplicados(List<String> duplicados) {
-		for (String i: duplicados) {
-			Example<Ingrediente> example = Example.of(new Ingrediente(i));
-			List<Ingrediente> ings = ingredienteRepository.findAll(example);
-			for (int j = 0; j < ings.size(); j++) {
-				if (j != 0) {
-					ingredienteRepository.deleteById(ings.get(j).getIdIngrediente());
-				}
-			}
-		}
+
+	public List<Ingrediente> saveIngredientes(List<Ingrediente> ingredientes) {
+		// TODO Auto-generated method stub
+		return ingredienteRepository.saveAll(ingredientes);
 	}
 	
 }

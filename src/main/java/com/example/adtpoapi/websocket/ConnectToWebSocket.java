@@ -2,7 +2,9 @@ package com.example.adtpoapi.websocket;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -65,8 +67,9 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 				  Ingrediente ing;
 				  Producto prod;
 				  Restaurante restaurante;
-				  List<String> duplicados = new ArrayList<String>();
-				  List<String> ingsids = new ArrayList<String>();
+				  Set<String> idIngredientes = new HashSet<String>();
+				  List<Ingrediente> ingredientesNuevos = new ArrayList<Ingrediente>();
+				  List<Ingrediente> utilizar = new ArrayList<Ingrediente>();
 				  JsonObject mensaje = contenido.get("mensaje").getAsJsonObject();
 				  JsonObject franquicia = mensaje.get("franquicia").getAsJsonObject();
 				  String[] listaDireccion = franquicia.get("direccion").getAsString().split(" ");
@@ -92,6 +95,28 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 				  }
 				  for (JsonElement p: mensaje.get("meals").getAsJsonArray()) {
 					  JsonObject po = p.getAsJsonObject();
+					  for (JsonElement i: po.get("productos").getAsJsonArray()) {
+						  JsonObject io = i.getAsJsonObject();
+						  if (!idIngredientes.contains(io.get("_id").getAsString())) {
+							  idIngredientes.add(io.get("_id").getAsString());
+							  ing = new Ingrediente(io.get("_id").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt());
+							  Integer idIngrediente = controlador.verificarIngrediente(ing);
+							  if (idIngrediente != 0) {
+								  ing.setIdIngrediente(idIngrediente);
+								  utilizar.add(ing);
+							  }
+							  else {
+								  ingredientesNuevos.add(new Ingrediente(io.get("_id").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt()));
+							  }
+						  }
+					  }
+				  }
+				  List<Ingrediente> ingNuevosGuardados = controlador.guardarIngredientes(ingredientesNuevos);
+				  for (Ingrediente in: ingNuevosGuardados) {
+					  utilizar.add(in);
+				  }
+				  for (JsonElement p: mensaje.get("meals").getAsJsonArray()) {
+					  JsonObject po = p.getAsJsonObject();
 					  prod = new Producto(po.get("_id").getAsString(), restaurante, po.get("nombre").getAsString(), po.get("descripcion").getAsString(), po.get("url_foto").getAsString(), po.get("precio").getAsDouble());
 					  Integer idProducto = controlador.verificarProducto(prod);
 					  System.out.println(idProducto);
@@ -100,26 +125,17 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  }
 					  for (JsonElement i: po.get("productos").getAsJsonArray()) {
 						  JsonObject io = i.getAsJsonObject();
-						  ing = new Ingrediente(io.get("_id").getAsString(), io.get("descripcion").getAsString(), io.get("cantidad").getAsInt());
-						  if (ingsids.contains(ing.getIngredient_id())) {
-							  duplicados.add(ing.getIngredient_id());
+						  for (Ingrediente ingr: utilizar) {
+							  if (ingr.getIngredient_id().equals(io.get("_id").getAsString())) {
+								  prod.addIngrediente(ingr);
+							  }
 						  }
-						  else {
-							  ingsids.add(ing.getIngredient_id());
-						  }
-						  Integer idIngrediente = controlador.verificarIngrediente(ing);
-						  System.out.println(idIngrediente);
-						  if (idIngrediente != 0) {
-							  ing.setIdIngrediente(idIngrediente);
-						  }
-						  prod.addIngrediente(ing);
 					  }
 					  productos.add(prod);
 				  }
 				  restaurante.setProductos(productos);
 				  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 				  controlador.upsertRestaurant(restaurante);
-				  controlador.eliminarDuplicados(duplicados);
 			  }
 			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-pedido")) {
 				  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("idorden").getAsInt(), contenido.get("mensaje").getAsString());
