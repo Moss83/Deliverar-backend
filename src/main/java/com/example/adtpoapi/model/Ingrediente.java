@@ -34,10 +34,11 @@ public class Ingrediente {
 		this.numeroGrupo = numeroGrupo;
 	}
 		
-	public Ingrediente(String ingredient_id, String nombre, Integer cantidad) {
+	public Ingrediente(String ingredient_id, String nombre, Integer cantidad, String codigo_producto) {
 		this.ingredient_id = ingredient_id;
 		this.descripcion = nombre;
 		this.cantidad = cantidad;
+		this.codigo_producto = codigo_producto;
 	}
 
 	public Ingrediente(String ingredient_id) {
