@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.adtpoapi.FiltroVO;
+import com.example.adtpoapi.IngredienteProductoVO;
 import com.example.adtpoapi.OrdenVO;
 import com.example.adtpoapi.ProductosOrdenVO;
 import com.example.adtpoapi.dao.DireccionDAO;
@@ -168,9 +169,13 @@ public class Controlador {
 		Orden ordenConId = ordenDAO.saveOrden(miOrden);
 		
 		List<ProductosOrdenVO> misProdsEnviar = new ArrayList<ProductosOrdenVO>();
-		
+		ProductosOrdenVO prod;
 		for (ProductosOrden po: misProdsPedidos) {
-			misProdsEnviar.add(new ProductosOrdenVO(po.getProducto().getMeal_id(), po.getCantidad()));
+			prod = new ProductosOrdenVO(1, po.getProducto().getMeal_id(), po.getCantidad(), po.getProducto().getNombre(), po.getProducto().getDescripcion(), po.getProducto().getPrecio(), po.getProducto().getFoto());
+			for (Ingrediente i: po.getProducto().getIngredientes()) {
+				prod.addIngrediente(new IngredienteProductoVO(i.getIngredient_id(), i.getCodigo_producto(), i.getDescripcion(), i.getCantidad(), i.getPrecio()));
+			}
+			misProdsEnviar.add(prod);
 		}
 		return new OrdenVO(ordenConId.getIdorden(), ordenConId.getDireccion().getIdDireccion(), misProdsEnviar);
 	}

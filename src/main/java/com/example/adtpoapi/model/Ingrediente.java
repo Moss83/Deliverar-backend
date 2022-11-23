@@ -17,16 +17,18 @@ public class Ingrediente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idingrediente;
 	private String ingredient_id;
-	private String nombre;
+	private String descripcion;
+	private String codigo_producto;
 	private Integer cantidad;
 	private Double precio;
 	@Column(name = "numero_grupo")
 	private Integer numeroGrupo; //para siguiente release
 
-	public Ingrediente(Integer idIngrediente, String nombre, Integer cantidad, Double precio,
+	public Ingrediente(Integer idIngrediente, String nombre, String codigo_producto, Integer cantidad, Double precio,
 			Integer numeroGrupo) {
 		this.idingrediente = idIngrediente;
-		this.nombre = nombre;
+		this.descripcion = nombre;
+		this.codigo_producto = codigo_producto;
 		this.cantidad = cantidad;
 		this.precio = precio;
 		this.numeroGrupo = numeroGrupo;
@@ -34,7 +36,7 @@ public class Ingrediente {
 		
 	public Ingrediente(String ingredient_id, String nombre, Integer cantidad) {
 		this.ingredient_id = ingredient_id;
-		this.nombre = nombre;
+		this.descripcion = nombre;
 		this.cantidad = cantidad;
 	}
 
@@ -59,12 +61,20 @@ public class Ingrediente {
 		this.ingredient_id = ingredient_id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setDescripcion(String nombre) {
+		this.descripcion = nombre;
 	}
+	public String getCodigo_producto() {
+		return codigo_producto;
+	}
+
+	public void setCodigo_producto(String codigo_producto) {
+		this.codigo_producto = codigo_producto;
+	}
+
 	public Integer getCantidad() {
 		return cantidad;
 	}
@@ -85,6 +95,6 @@ public class Ingrediente {
 	}
 	
 	public IngredienteView toView() {
-		return new IngredienteView(idingrediente, nombre, cantidad, precio, numeroGrupo);
+		return new IngredienteView(idingrediente, descripcion, cantidad, precio, numeroGrupo);
 	}
 }

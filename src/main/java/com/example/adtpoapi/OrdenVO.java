@@ -12,8 +12,8 @@ public class OrdenVO implements Serializable{
 	private Integer idorden;
 	private Integer idDireccion;
 	private List<ProductosOrdenVO> productos;
-	
-	
+
+
 	public OrdenVO(Integer idorden, Integer idDireccion, List<ProductosOrdenVO> productos) {
 		this.idorden = idorden;
 		this.idDireccion = idDireccion;
@@ -33,6 +33,7 @@ public class OrdenVO implements Serializable{
 	public void setIdDireccion(Integer idDireccion) {
 		this.idDireccion = idDireccion;
 	}
+
 	public List<ProductosOrdenVO> getProductos() {
 		return productos;
 	}
