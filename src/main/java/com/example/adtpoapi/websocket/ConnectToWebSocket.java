@@ -138,8 +138,15 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 				  controlador.upsertRestaurant(restaurante);
 			  }
 			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-pedido")) {
-				  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("order_id").getAsInt(), contenido.get("mensaje").getAsJsonObject().get("order_status").getAsString());
-				  controlador.addMensajeFranquicia(mensaje);
+				  MensajeFranquicia actual = controlador.getMensajeFranquicia(contenido.get("mensaje").getAsJsonObject().get("order_id").getAsInt());
+				  if (actual.getIdentificador() == 0) {
+					  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("order_id").getAsInt(), contenido.get("mensaje").getAsJsonObject().get("order_status").getAsString());
+					  controlador.addMensajeFranquicia(mensaje);
+				  }
+				  else {
+					  actual.setMensaje(contenido.get("mensaje").getAsJsonObject().get("order_status").getAsString());
+					  controlador.addMensajeFranquicia(actual);
+				  }
 				  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 			  }
 			  else {

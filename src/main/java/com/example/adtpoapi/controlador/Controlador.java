@@ -187,6 +187,10 @@ public class Controlador {
 		return new ConfirmacionFranquiciaView(idorden, mensaje.getMensaje());
 	}
 	
+	public MensajeFranquicia getMensajeFranquicia(Integer idorden) {
+		return mensajeFranquiciaDAO.getMensajeInterno(idorden);
+	}
+	
 	public void upsertRestaurant(Restaurante restaurante) {
 		restauranteDAO.saveRestaurante(restaurante);
 	}

@@ -31,4 +31,17 @@ public class MensajeFranquiciaDAO {
 			return actual.get();
 		}
 	}
+	
+	public MensajeFranquicia getMensajeInterno(Integer identificador) {
+		Example<MensajeFranquicia> example = Example.of(new MensajeFranquicia(identificador));
+		Optional<MensajeFranquicia> actual = mensajeFranquiciaRepository.findOne(example);
+		
+		if (actual.isEmpty()) {
+			return new MensajeFranquicia(0);
+		}
+		else {
+			return actual.get();
+		}
+	}
+	
 }
