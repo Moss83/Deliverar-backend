@@ -138,7 +138,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 				  controlador.upsertRestaurant(restaurante);
 			  }
 			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-pedido")) {
-				  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("idorden").getAsInt(), contenido.get("mensaje").getAsString());
+				  MensajeFranquicia mensaje = new MensajeFranquicia("confirmacion", contenido.get("mensaje").getAsJsonObject().get("order_id").getAsInt(), contenido.get("mensaje").getAsJsonObject().get("order_status").getAsString());
 				  controlador.addMensajeFranquicia(mensaje);
 				  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 			  }

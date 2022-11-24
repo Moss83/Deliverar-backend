@@ -33,8 +33,6 @@ import com.example.adtpoapi.view.ProductoView;
 import com.example.adtpoapi.view.ProductosOrdenView;
 import com.example.adtpoapi.view.RestauranteView;
 import com.example.adtpoapi.view.UsuarioView;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 @Service
 public class Controlador {
@@ -186,9 +184,7 @@ public class Controlador {
 
 	public ConfirmacionFranquiciaView getConfirmacionFranquicia(Integer idorden) {
 		MensajeFranquicia mensaje = mensajeFranquiciaDAO.getMensaje(idorden);
-		JsonParser parser = new JsonParser();
-		JsonObject contenido = parser.parse(mensaje.getMensaje()).getAsJsonObject();
-		return new ConfirmacionFranquiciaView(idorden, contenido.get("estado").getAsString());
+		return new ConfirmacionFranquiciaView(idorden, mensaje.getMensaje());
 	}
 	
 	public void upsertRestaurant(Restaurante restaurante) {
