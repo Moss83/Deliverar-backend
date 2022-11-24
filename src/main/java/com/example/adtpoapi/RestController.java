@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.adtpoapi.controlador.Controlador;
 import com.example.adtpoapi.view.ConfirmacionFranquiciaView;
+import com.example.adtpoapi.view.MensajeRepartidorView;
 import com.example.adtpoapi.view.OrdenView;
 import com.example.adtpoapi.view.ProductoView;
 import com.example.adtpoapi.view.RestauranteView;
@@ -81,6 +82,12 @@ public class RestController {
 	@GetMapping("/getConfirmacionFranquicia")
 	public ConfirmacionFranquiciaView getConfirmacionFranquicia(@RequestParam(name = "idorden") Integer idorden) {
 		return controlador.getConfirmacionFranquicia(idorden);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:19006")
+	@GetMapping("/getDatosRepartidor")
+	public MensajeRepartidorView getDatosRepartidor(@RequestParam(name = "idorden") Integer idorden) {
+		return controlador.getDatosRepartidor(idorden);
 	}
 	
 	@GetMapping("/")

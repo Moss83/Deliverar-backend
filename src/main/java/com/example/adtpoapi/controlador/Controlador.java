@@ -13,6 +13,7 @@ import com.example.adtpoapi.ProductosOrdenVO;
 import com.example.adtpoapi.dao.DireccionDAO;
 import com.example.adtpoapi.dao.IngredienteDAO;
 import com.example.adtpoapi.dao.MensajeFranquiciaDAO;
+import com.example.adtpoapi.dao.MensajeRepartidorDAO;
 import com.example.adtpoapi.dao.OrdenDAO;
 import com.example.adtpoapi.dao.ProductoDAO;
 import com.example.adtpoapi.dao.RestauranteDAO;
@@ -21,6 +22,7 @@ import com.example.adtpoapi.exception.NoContentException;
 import com.example.adtpoapi.model.Direccion;
 import com.example.adtpoapi.model.Ingrediente;
 import com.example.adtpoapi.model.MensajeFranquicia;
+import com.example.adtpoapi.model.MensajeRepartidor;
 import com.example.adtpoapi.model.Orden;
 import com.example.adtpoapi.model.Producto;
 import com.example.adtpoapi.model.ProductosOrden;
@@ -28,6 +30,7 @@ import com.example.adtpoapi.model.Restaurante;
 import com.example.adtpoapi.model.Usuario;
 import com.example.adtpoapi.view.ConfirmacionFranquiciaView;
 import com.example.adtpoapi.view.DireccionView;
+import com.example.adtpoapi.view.MensajeRepartidorView;
 import com.example.adtpoapi.view.OrdenView;
 import com.example.adtpoapi.view.ProductoView;
 import com.example.adtpoapi.view.ProductosOrdenView;
@@ -57,6 +60,9 @@ public class Controlador {
 	
 	@Autowired
 	private MensajeFranquiciaDAO mensajeFranquiciaDAO;
+	
+	@Autowired
+	private MensajeRepartidorDAO mensajeRepartidorDAO;
 	
 	public UsuarioView login (UsuarioView usuario) throws NoContentException {
 		if (usuario.getIdUsuario() != null) {
@@ -211,6 +217,24 @@ public class Controlador {
 	
 	public List<Ingrediente> guardarIngredientes(List<Ingrediente> ingredientes) {
 		return ingredienteDAO.saveIngredientes(ingredientes);
+	}
+
+	public MensajeRepartidor getMensajeRepartidor(Integer identificador) {
+		return mensajeRepartidorDAO.getMensajeInterno(identificador);
+	}
+
+	public void addMensajeRepartidor(MensajeRepartidor mensaje) {
+		mensajeRepartidorDAO.saveMensaje(mensaje);
+	}
+
+	public MensajeRepartidorView getDatosRepartidor(Integer idorden) {
+		MensajeRepartidor mensaje = mensajeRepartidorDAO.getMensaje(idorden);
+		if (mensaje.getStatus().equalsIgnoreCase("ENTREGADO")) {
+			return mensaje.toViewEntregado();
+		}
+		else {
+			return mensaje.toViewUbicacion();
+		}
 	}
 	
 }

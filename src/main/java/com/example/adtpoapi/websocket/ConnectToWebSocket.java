@@ -16,6 +16,7 @@ import com.example.adtpoapi.controlador.Controlador;
 import com.example.adtpoapi.model.Direccion;
 import com.example.adtpoapi.model.Ingrediente;
 import com.example.adtpoapi.model.MensajeFranquicia;
+import com.example.adtpoapi.model.MensajeRepartidor;
 import com.example.adtpoapi.model.Producto;
 import com.example.adtpoapi.model.Restaurante;
 import com.google.gson.JsonElement;
@@ -48,14 +49,22 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 		  JsonObject contenido = parser.parse(msg.getContenido()).getAsJsonObject();
 		  
 		  if (msg.getEmisor().equalsIgnoreCase("repartidor")) {
-			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("en camino")) {
-				  System.out.println("En camino");
+			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-ubicacion")) {
+				  MensajeRepartidor actual = controlador.getMensajeRepartidor(contenido.get("mensaje").getAsJsonObject().get("order_id").getAsInt());
+				  if (actual.getIdentificador() == 0) {
+					  MensajeRepartidor mensaje = new MensajeRepartidor(contenido.get("mensaje").getAsJsonObject().get("order_id").getAsInt(), contenido.get("mensaje").getAsJsonObject().get("latitud").getAsString(), contenido.get("mensaje").getAsJsonObject().get("longitud").getAsString(), contenido.get("mensaje").getAsJsonObject().get("status").getAsString(), contenido.get("mensaje").getAsJsonObject().get("username").getAsString());  
+					  controlador.addMensajeRepartidor(mensaje);
+				  }
+				  else {
+					  actual.setLatitud(contenido.get("mensaje").getAsJsonObject().get("latitud").getAsString());
+					  actual.setLongitud(contenido.get("mensaje").getAsJsonObject().get("longitud").getAsString());
+					  controlador.addMensajeRepartidor(actual);
+				  }
 			  }
-			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("entregado")){
-				  System.out.println("Entregado");
-			  }
-			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("coordenadas")) {
-				  System.out.println("Coordenadas Update");
+			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-pedido") && contenido.get("mensaje").getAsJsonObject().get("status").getAsString().equalsIgnoreCase("ENTREGADO")) {
+				  MensajeRepartidor actual = controlador.getMensajeRepartidor(contenido.get("mensaje").getAsJsonObject().get("order_id").getAsInt());
+				  actual.setStatus("ENTREGADO");
+				  controlador.addMensajeRepartidor(actual);
 			  }
 			  else {
 				  System.out.println("Repartidor mando otra cosa");  
@@ -134,7 +143,6 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  productos.add(prod);
 				  }
 				  restaurante.setProductos(productos);
-				  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 				  controlador.upsertRestaurant(restaurante);
 			  }
 			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-pedido")) {
@@ -147,7 +155,6 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  actual.setMensaje(contenido.get("mensaje").getAsJsonObject().get("order_status").getAsString());
 					  controlador.addMensajeFranquicia(actual);
 				  }
-				  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 			  }
 			  else {
 				  System.out.println("Franquicia mando otra cosa");
@@ -160,9 +167,6 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 			  else {
 				  System.out.println("Pagos mando otra cosa");
 			  }
-		  }
-		  else {
-			  System.out.println("Contenido: " + msg.getContenido() + " - Emisor: " + msg.getEmisor());
 		  }
 	   }
 	   
