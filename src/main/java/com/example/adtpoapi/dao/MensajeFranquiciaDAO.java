@@ -1,6 +1,9 @@
 package com.example.adtpoapi.dao;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.example.adtpoapi.entities.MensajeFranquiciaRepository;
@@ -18,6 +21,14 @@ public class MensajeFranquiciaDAO {
 	}
 	
 	public MensajeFranquicia getMensaje(Integer identificador) throws NoContentException {
-		return mensajeFranquiciaRepository.findById(identificador).orElseThrow(() -> new NoContentException());
+		Example<MensajeFranquicia> example = Example.of(new MensajeFranquicia(identificador));
+		Optional<MensajeFranquicia> actual = mensajeFranquiciaRepository.findOne(example);
+		
+		if (actual.isEmpty()) {
+			throw new NoContentException();
+		}
+		else {
+			return actual.get();
+		}
 	}
 }

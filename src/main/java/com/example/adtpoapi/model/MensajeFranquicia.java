@@ -29,6 +29,12 @@ public class MensajeFranquicia {
 		this.identificador = identificador;
 		this.mensaje = mensaje;
 	}
+	
+	
+
+	public MensajeFranquicia(Integer identificador) {
+		this.identificador = identificador;
+	}
 
 	public MensajeFranquicia() {}
 
