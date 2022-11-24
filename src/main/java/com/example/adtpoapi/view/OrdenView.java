@@ -24,6 +24,12 @@ public class OrdenView implements Serializable {
 		this.productos = productos;
 	}
 	
+	public OrdenView(Integer idorden, Integer idDireccion, List<ProductosOrdenView> productos) {
+		this.idorden = idorden;
+		this.idDireccion = idDireccion;
+		this.productos = productos;
+	}
+
 	public OrdenView() {}
 	
 	public Integer getIdorden() {
