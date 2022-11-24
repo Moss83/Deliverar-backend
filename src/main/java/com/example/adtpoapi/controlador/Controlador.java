@@ -175,7 +175,7 @@ public class Controlador {
 			}
 			misProdsEnviar.add(prod);
 		}
-		return new OrdenVO(ordenConId.getIdorden(), ordenConId.getDireccion().getIdDireccion(), misProdsEnviar);
+		return new OrdenVO(ordenConId.getIdorden(), ordenConId.getDireccion().getIdDireccion(), orden.getPropina(), orden.getCosto_envio(), misProdsEnviar);
 	}
 	
 	public void addMensajeFranquicia(MensajeFranquicia mensaje) {
