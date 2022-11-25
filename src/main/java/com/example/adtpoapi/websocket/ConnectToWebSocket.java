@@ -167,7 +167,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 				  controlador.saveMensajePagos(mensaje);
 			  }
 			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("compra") && contenido.has("error")) {
-				  MensajePagos mensaje = new MensajePagos("Saldo insuficiente");
+				  MensajePagos mensaje = new MensajePagos(contenido.get("error").getAsString());
 				  controlador.saveMensajePagos(mensaje);
 			  }
 			  else {
