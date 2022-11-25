@@ -50,7 +50,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 		  JsonObject contenido = parser.parse(msg.getContenido()).getAsJsonObject();
 		  
 		  if (msg.getEmisor().equalsIgnoreCase("repartidor")) {
-			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-ubicacion")) {
+			  if (contenido.has("tipo") && contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-ubicacion")) {
 				  MensajeRepartidor actual = controlador.getMensajeRepartidor(contenido.get("mensaje").getAsJsonObject().get("order_id").getAsInt());
 				  if (actual.getIdentificador() == 0) {
 					  MensajeRepartidor mensaje = new MensajeRepartidor(contenido.get("mensaje").getAsJsonObject().get("order_id").getAsInt(), contenido.get("mensaje").getAsJsonObject().get("latitud").getAsString(), contenido.get("mensaje").getAsJsonObject().get("longitud").getAsString(), contenido.get("mensaje").getAsJsonObject().get("status").getAsString(), contenido.get("mensaje").getAsJsonObject().get("username").getAsString());  
@@ -62,7 +62,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 					  controlador.addMensajeRepartidor(actual);
 				  }
 			  }
-			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-pedido") && contenido.get("mensaje").getAsJsonObject().get("status").getAsString().equalsIgnoreCase("ENTREGADO")) {
+			  else if (contenido.has("tipo") && contenido.get("tipo").getAsString().equalsIgnoreCase("actualizacion-pedido") && contenido.get("mensaje").getAsJsonObject().get("status").getAsString().equalsIgnoreCase("ENTREGADO")) {
 				  MensajeRepartidor actual = controlador.getMensajeRepartidor(contenido.get("mensaje").getAsJsonObject().get("order_id").getAsInt());
 				  actual.setStatus("ENTREGADO");
 				  controlador.addMensajeRepartidor(actual);
