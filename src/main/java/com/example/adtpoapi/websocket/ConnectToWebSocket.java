@@ -16,6 +16,7 @@ import com.example.adtpoapi.controlador.Controlador;
 import com.example.adtpoapi.model.Direccion;
 import com.example.adtpoapi.model.Ingrediente;
 import com.example.adtpoapi.model.MensajeFranquicia;
+import com.example.adtpoapi.model.MensajePagos;
 import com.example.adtpoapi.model.MensajeRepartidor;
 import com.example.adtpoapi.model.Producto;
 import com.example.adtpoapi.model.Restaurante;
@@ -161,8 +162,13 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 			  }
 		  }
 		  else if (msg.getEmisor().equalsIgnoreCase("partners")) {
-			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("confirmacion")) {
-				  
+			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("transferencia") && !contenido.has("error")) {
+				  MensajePagos mensaje = new MensajePagos("Confirmado");
+				  controlador.saveMensajePagos(mensaje);
+			  }
+			  else if (contenido.get("tipo").getAsString().equalsIgnoreCase("compra") && contenido.has("error")) {
+				  MensajePagos mensaje = new MensajePagos("Saldo insuficiente");
+				  controlador.saveMensajePagos(mensaje);
 			  }
 			  else {
 				  System.out.println("Pagos mando otra cosa");

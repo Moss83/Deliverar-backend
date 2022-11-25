@@ -13,6 +13,7 @@ import com.example.adtpoapi.ProductosOrdenVO;
 import com.example.adtpoapi.dao.DireccionDAO;
 import com.example.adtpoapi.dao.IngredienteDAO;
 import com.example.adtpoapi.dao.MensajeFranquiciaDAO;
+import com.example.adtpoapi.dao.MensajePagosDAO;
 import com.example.adtpoapi.dao.MensajeRepartidorDAO;
 import com.example.adtpoapi.dao.OrdenDAO;
 import com.example.adtpoapi.dao.ProductoDAO;
@@ -22,6 +23,7 @@ import com.example.adtpoapi.exception.NoContentException;
 import com.example.adtpoapi.model.Direccion;
 import com.example.adtpoapi.model.Ingrediente;
 import com.example.adtpoapi.model.MensajeFranquicia;
+import com.example.adtpoapi.model.MensajePagos;
 import com.example.adtpoapi.model.MensajeRepartidor;
 import com.example.adtpoapi.model.Orden;
 import com.example.adtpoapi.model.Producto;
@@ -30,6 +32,7 @@ import com.example.adtpoapi.model.Restaurante;
 import com.example.adtpoapi.model.Usuario;
 import com.example.adtpoapi.view.ConfirmacionFranquiciaView;
 import com.example.adtpoapi.view.DireccionView;
+import com.example.adtpoapi.view.MensajePagosView;
 import com.example.adtpoapi.view.MensajeRepartidorView;
 import com.example.adtpoapi.view.OrdenView;
 import com.example.adtpoapi.view.ProductoView;
@@ -63,6 +66,9 @@ public class Controlador {
 	
 	@Autowired
 	private MensajeRepartidorDAO mensajeRepartidorDAO;
+	
+	@Autowired
+	private MensajePagosDAO mensajePagosDAO;
 	
 	public UsuarioView login (UsuarioView usuario) throws NoContentException {
 		if (usuario.getIdUsuario() != null) {
@@ -235,6 +241,14 @@ public class Controlador {
 		else {
 			return mensaje.toViewUbicacion();
 		}
+	}
+	
+	public void saveMensajePagos(MensajePagos mensaje) {
+		mensajePagosDAO.saveMensaje(mensaje);
+	}
+	
+	public MensajePagosView getMensajePagos() {
+		return mensajePagosDAO.getMensaje().toView();
 	}
 	
 }
