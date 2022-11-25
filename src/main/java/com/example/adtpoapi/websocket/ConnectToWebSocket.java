@@ -162,7 +162,7 @@ public class ConnectToWebSocket extends StompSessionHandlerAdapter{
 			  }
 		  }
 		  else if (msg.getEmisor().equalsIgnoreCase("partners")) {
-			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("transferencia") && !contenido.has("error")) {
+			  if (contenido.get("tipo").getAsString().equalsIgnoreCase("compra") && !contenido.has("error")) {
 				  MensajePagos mensaje = new MensajePagos("Confirmado");
 				  controlador.saveMensajePagos(mensaje);
 			  }
