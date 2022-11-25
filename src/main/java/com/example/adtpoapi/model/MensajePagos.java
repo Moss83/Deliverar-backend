@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import com.example.adtpoapi.view.MensajePagosView;
 
 @Entity
-@Table(name = "mensajepagos")
+@Table(name = "mensajespagos")
 public class MensajePagos {
 	
 	@Id
